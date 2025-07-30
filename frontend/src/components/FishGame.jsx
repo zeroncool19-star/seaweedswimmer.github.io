@@ -13,11 +13,11 @@ const FishGame = () => {
   const CANVAS_WIDTH = 800;
   const CANVAS_HEIGHT = 600;
   const FISH_SIZE = 40;
-  const SEAWEED_WIDTH = 60;
-  const SEAWEED_GAP = 180;
-  const GRAVITY = 0.4;
+  const SEAWEED_WIDTH = 80;
+  const SEAWEED_GAP = 200;
+  const GRAVITY = 0.25;
   const FISH_JUMP = -7;
-  const BASE_SEAWEED_SPEED = 1.5;
+  const BASE_SEAWEED_SPEED = 1;
 
   // Game state
   const gameRef = useRef({
