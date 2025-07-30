@@ -36,15 +36,16 @@ const FishGame = () => {
 
   // Create seaweed obstacle
   const createSeaweed = (x) => {
-    const minGapY = 100;
-    const maxGapY = CANVAS_HEIGHT - SEAWEED_GAP - 100;
+    const minGapY = 120;
+    const maxGapY = CANVAS_HEIGHT - SEAWEED_GAP - 120;
     const gapY = Math.random() * (maxGapY - minGapY) + minGapY;
     
     return {
       x: x,
       gapY: gapY,
       swayOffset: Math.random() * Math.PI * 2,
-      swaySpeed: 0.03 + Math.random() * 0.02
+      swaySpeed: 0.008 + Math.random() * 0.005, // Much slower sway like real seaweed
+      swayAmount: 20 + Math.random() * 15 // Variable sway amount
     };
   };
 
