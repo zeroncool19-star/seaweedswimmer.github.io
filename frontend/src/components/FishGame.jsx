@@ -201,45 +201,74 @@ const FishGame = () => {
       ctx.restore();
     });
 
-    // Draw seaweeds
+    // Draw seaweeds with realistic ocean seaweed appearance
     game.seaweeds.forEach(seaweed => {
-      const sway = Math.sin(Date.now() * seaweed.swaySpeed + seaweed.swayOffset) * 15;
+      const sway = Math.sin(Date.now() * seaweed.swaySpeed + seaweed.swayOffset) * seaweed.swayAmount;
       
-      ctx.save();
-      ctx.fillStyle = '#2d5a2d';
+      // Function to draw realistic seaweed fronds
+      const drawSeaweedFrond = (x, y, height, isTop) => {
+        const frondWidth = SEAWEED_WIDTH / 4;
+        const segments = Math.floor(height / 15);
+        
+        for (let i = 0; i < 3; i++) { // 3 fronds per seaweed
+          const frondX = x + (i - 1) * frondWidth;
+          const swayMultiplier = (i === 1) ? 1 : 0.7; // Center frond sways more
+          
+          ctx.save();
+          ctx.strokeStyle = i === 1 ? '#1a5d1a' : '#0d4a0d';
+          ctx.lineWidth = 6 - i;
+          ctx.lineCap = 'round';
+          
+          ctx.beginPath();
+          ctx.moveTo(frondX, y);
+          
+          for (let j = 1; j <= segments; j++) {
+            const segmentY = isTop ? y - (j * 15) : y + (j * 15);
+            const segmentSway = sway * swayMultiplier * (j / segments);
+            const naturalCurve = Math.sin(j * 0.3) * 8 * (j / segments);
+            
+            ctx.lineTo(frondX + segmentSway + naturalCurve, segmentY);
+          }
+          
+          ctx.stroke();
+          
+          // Add small leaves along the frond
+          for (let j = 3; j <= segments; j += 2) {
+            const leafY = isTop ? y - (j * 15) : y + (j * 15);
+            const leafSway = sway * swayMultiplier * (j / segments);
+            const leafCurve = Math.sin(j * 0.3) * 8 * (j / segments);
+            
+            ctx.fillStyle = '#2d6e2d';
+            ctx.save();
+            ctx.translate(frondX + leafSway + leafCurve, leafY);
+            ctx.rotate((leafSway + leafCurve) * 0.02);
+            
+            // Small leaf shapes
+            ctx.beginPath();
+            ctx.ellipse(-8, 0, 8, 3, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(8, 0, 8, 3, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.restore();
+          }
+          
+          ctx.restore();
+        }
+      };
       
-      // Top seaweed
-      ctx.save();
-      ctx.translate(seaweed.x, seaweed.gapY);
-      ctx.rotate(sway * 0.01);
-      ctx.fillRect(-SEAWEED_WIDTH / 2, -seaweed.gapY, SEAWEED_WIDTH, seaweed.gapY);
+      // Draw top seaweed (growing downward from ceiling)
+      drawSeaweedFrond(seaweed.x, seaweed.gapY, seaweed.gapY, true);
       
-      // Add wavy edges
-      ctx.fillStyle = '#1a4d1a';
-      for (let i = 0; i < seaweed.gapY; i += 20) {
-        const wave = Math.sin((i + Date.now() * 0.01) * 0.1) * 8;
-        ctx.fillRect(-SEAWEED_WIDTH / 2 + wave, -seaweed.gapY + i, 5, 15);
-        ctx.fillRect(SEAWEED_WIDTH / 2 - 5 + wave, -seaweed.gapY + i, 5, 15);
-      }
-      ctx.restore();
+      // Draw bottom seaweed (growing upward from floor)
+      const bottomHeight = CANVAS_HEIGHT - (seaweed.gapY + SEAWEED_GAP);
+      drawSeaweedFrond(seaweed.x, seaweed.gapY + SEAWEED_GAP, bottomHeight, false);
       
-      // Bottom seaweed
-      ctx.save();
-      ctx.translate(seaweed.x, seaweed.gapY + SEAWEED_GAP);
-      ctx.rotate(-sway * 0.01);
-      ctx.fillStyle = '#2d5a2d';
-      ctx.fillRect(-SEAWEED_WIDTH / 2, 0, SEAWEED_WIDTH, CANVAS_HEIGHT - (seaweed.gapY + SEAWEED_GAP));
-      
-      // Add wavy edges
-      ctx.fillStyle = '#1a4d1a';
-      for (let i = 0; i < CANVAS_HEIGHT - (seaweed.gapY + SEAWEED_GAP); i += 20) {
-        const wave = Math.sin((i + Date.now() * 0.01) * 0.1) * 8;
-        ctx.fillRect(-SEAWEED_WIDTH / 2 + wave, i, 5, 15);
-        ctx.fillRect(SEAWEED_WIDTH / 2 - 5 + wave, i, 5, 15);
-      }
-      ctx.restore();
-      
-      ctx.restore();
+      // Add seaweed base/roots
+      ctx.fillStyle = '#0d3d0d';
+      ctx.fillRect(seaweed.x - SEAWEED_WIDTH/2, 0, SEAWEED_WIDTH, 15); // Top base
+      ctx.fillRect(seaweed.x - SEAWEED_WIDTH/2, CANVAS_HEIGHT - 15, SEAWEED_WIDTH, 15); // Bottom base
     });
 
     // Draw fish
