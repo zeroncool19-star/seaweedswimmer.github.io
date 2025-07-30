@@ -94,11 +94,10 @@ const FishGame = () => {
     const fishTop = fish.y - FISH_SIZE / 2;
     const fishBottom = fish.y + FISH_SIZE / 2;
 
-    const seaweedLeft = seaweed.x - SEAWEED_WIDTH / 2;
-    const seaweedRight = seaweed.x + SEAWEED_WIDTH / 2;
+    // More generous collision detection accounting for seaweed sway
+    const seaweedLeft = seaweed.x - SEAWEED_WIDTH / 3; // More generous hitbox
+    const seaweedRight = seaweed.x + SEAWEED_WIDTH / 3;
     
-    // Calculate seaweed sway
-    const sway = Math.sin(Date.now() * seaweed.swaySpeed + seaweed.swayOffset) * 15;
     const topSeaweedBottom = seaweed.gapY;
     const bottomSeaweedTop = seaweed.gapY + SEAWEED_GAP;
 
