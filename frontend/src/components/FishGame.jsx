@@ -380,7 +380,7 @@ const FishGame = () => {
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
             <Card className="p-8 text-center bg-blue-900 border-blue-700">
               <h1 className="text-4xl font-bold text-white mb-4">
-                🐠 Ocean Fish Adventure
+                🐠 Seaweed Swimmer
               </h1>
               {gameState === 'gameOver' && (
                 <div className="text-white mb-4">
