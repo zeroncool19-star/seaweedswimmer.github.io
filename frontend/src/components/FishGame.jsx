@@ -89,13 +89,29 @@ const FishGame = () => {
     setScore(0);
   }, []);
 
-  // Handle fish jump
-  const jumpFish = useCallback(() => {
+  // Handle fish jump with haptic feedback
+  const jumpFish = useCallback(async () => {
     if (gameState === 'playing') {
       gameRef.current.fish.velocity = FISH_JUMP;
+      // Add haptic feedback on mobile
+      try {
+        if (Haptics) {
+          await Haptics.impact({ style: 'light' });
+        }
+      } catch (error) {
+        // Haptics not available, continue without feedback
+      }
     } else if (gameState === 'menu' || gameState === 'gameOver') {
       initGame();
       setGameState('playing');
+      // Add haptic feedback for menu interaction
+      try {
+        if (Haptics) {
+          await Haptics.impact({ style: 'medium' });
+        }
+      } catch (error) {
+        // Haptics not available, continue without feedback
+      }
     }
   }, [gameState, initGame]);
 
