@@ -383,9 +383,9 @@ const FishGame = () => {
 
         {/* Menu/Game Over Overlay */}
         {(gameState === 'menu' || gameState === 'gameOver') && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg">
-            <Card className="p-8 text-center bg-blue-900 border-blue-700">
-              <h1 className="text-4xl font-bold text-white mb-4">
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg p-4">
+            <Card className="p-4 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-sm w-full">
+              <h1 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">
                 🐠 Seaweed Swimmer
               </h1>
               {gameState === 'gameOver' && (
