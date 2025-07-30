@@ -324,6 +324,11 @@ const FishGame = () => {
       jumpFish();
     };
 
+    const handleTouch = (e) => {
+      e.preventDefault();
+      jumpFish();
+    };
+
     const handleKeyPress = (e) => {
       if (e.code === 'Space') {
         e.preventDefault();
@@ -331,17 +336,31 @@ const FishGame = () => {
       }
     };
 
+    // Prevent context menu on long press
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+    };
+
+    // Prevent default touch behaviors to avoid scrolling
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+    };
+
     const canvas = canvasRef.current;
     if (canvas) {
       canvas.addEventListener('click', handleClick);
-      canvas.addEventListener('touchstart', handleClick);
+      canvas.addEventListener('touchstart', handleTouch, { passive: false });
+      canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+      canvas.addEventListener('contextmenu', handleContextMenu);
       document.addEventListener('keydown', handleKeyPress);
     }
 
     return () => {
       if (canvas) {
         canvas.removeEventListener('click', handleClick);
-        canvas.removeEventListener('touchstart', handleClick);
+        canvas.removeEventListener('touchstart', handleTouch);
+        canvas.removeEventListener('touchmove', handleTouchMove);
+        canvas.removeEventListener('contextmenu', handleContextMenu);
       }
       document.removeEventListener('keydown', handleKeyPress);
     };
