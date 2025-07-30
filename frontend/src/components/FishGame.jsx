@@ -170,10 +170,14 @@ const FishGame = () => {
       }
     });
 
-    // Remove off-screen seaweeds and add new ones
+    // Remove off-screen seaweeds and add new ones with unpredictable spacing
     game.seaweeds = game.seaweeds.filter(seaweed => seaweed.x > -SEAWEED_WIDTH);
     
-    if (game.seaweeds.length === 0 || game.seaweeds[game.seaweeds.length - 1].x < CANVAS_WIDTH - 300 - (game.difficulty * 5)) {
+    // Unpredictable seaweed spawning
+    const randomSpacing = 350 + Math.random() * 200; // Random spacing between 350-550px
+    const lastSeaweed = game.seaweeds[game.seaweeds.length - 1];
+    
+    if (game.seaweeds.length === 0 || (lastSeaweed && lastSeaweed.x < CANVAS_WIDTH - randomSpacing)) {
       game.seaweeds.push(createSeaweed(CANVAS_WIDTH + SEAWEED_WIDTH));
     }
 
