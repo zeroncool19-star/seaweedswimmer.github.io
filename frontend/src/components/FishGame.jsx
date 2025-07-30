@@ -7,7 +7,7 @@ const FishGame = () => {
   const gameLoopRef = useRef(null);
   const [gameState, setGameState] = useState('menu'); // menu, playing, gameOver
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(parseInt(localStorage.getItem('fishGameHighScore') || '0'));
+  const [highScore, setHighScore] = useState(parseInt(localStorage.getItem('seaweedSwimmerHighScore') || '0'));
 
   // Game constants
   const CANVAS_WIDTH = 800;
