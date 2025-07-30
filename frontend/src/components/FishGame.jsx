@@ -375,10 +375,10 @@ const FishGame = () => {
         />
         
         {/* Game UI Overlay */}
-        <div className="absolute top-4 left-4 text-white">
-          <div className="text-2xl font-bold mb-2">Score: {score}</div>
-          <div className="text-lg">High Score: {highScore}</div>
-          <div className="text-sm opacity-75">Difficulty: {Math.floor(score / 30) + 1}</div>
+        <div className="absolute top-2 left-2 text-white text-sm sm:text-base sm:top-4 sm:left-4">
+          <div className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Score: {score}</div>
+          <div className="text-base sm:text-lg">High Score: {highScore}</div>
+          <div className="text-xs sm:text-sm opacity-75">Difficulty: {Math.floor(score / 30) + 1}</div>
         </div>
 
         {/* Menu/Game Over Overlay */}
