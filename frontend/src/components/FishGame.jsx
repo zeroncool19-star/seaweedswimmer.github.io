@@ -104,10 +104,15 @@ const FishGame = () => {
     setScore(0);
   }, []);
 
-  // Handle fish jump with haptic feedback
+  // Handle fish jump with haptic feedback and speed scaling
   const jumpFish = useCallback(async () => {
     if (gameState === 'playing') {
-      gameRef.current.fish.velocity = FISH_JUMP;
+      // Scale jump force with difficulty for consistent feel
+      const currentDifficulty = Math.floor(score / 20) + 1;
+      const fishSpeedMultiplier = 1 + (currentDifficulty - 1) * 0.05;
+      const adjustedJump = FISH_JUMP * fishSpeedMultiplier;
+      
+      gameRef.current.fish.velocity = adjustedJump;
       // Add haptic feedback on mobile
       try {
         if (Haptics) {
@@ -128,7 +133,7 @@ const FishGame = () => {
         // Haptics not available, continue without feedback
       }
     }
-  }, [gameState, initGame]);
+  }, [gameState, initGame, score]);
 
   // Check collision
   const checkCollision = (fish, seaweed) => {
