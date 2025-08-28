@@ -185,12 +185,16 @@ const FishGame = () => {
       setScore(newScore);
     }
 
-    // Update difficulty
-    game.difficulty = Math.floor(newScore / 30) + 1;
+    // Update difficulty every 20 points and increase fish speed
+    game.difficulty = Math.floor(newScore / 20) + 1;
     const currentSpeed = BASE_SEAWEED_SPEED + (game.difficulty - 1) * 0.2;
-
-    // Update fish physics (optimized)
-    game.fish.velocity += GRAVITY;
+    
+    // Increase fish movement speed slightly with difficulty
+    const fishSpeedMultiplier = 1 + (game.difficulty - 1) * 0.05;
+    
+    // Update fish physics with speed multiplier
+    const adjustedGravity = GRAVITY * fishSpeedMultiplier;
+    game.fish.velocity += adjustedGravity;
     game.fish.y += game.fish.velocity;
     game.fish.rotation = Math.max(-30, Math.min(30, game.fish.velocity * 3));
 
