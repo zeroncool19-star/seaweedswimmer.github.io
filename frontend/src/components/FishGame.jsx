@@ -529,7 +529,7 @@ const FishGame = () => {
               <div className="text-white mb-4 sm:mb-6 text-sm sm:text-base">
                 <p className="mb-1 sm:mb-2">Tap to make the fish swim up!</p>
                 <p className="mb-1 sm:mb-2">Navigate through the swaying seaweed forest</p>
-                <p className="text-xs sm:text-sm opacity-75">Survive as long as possible - difficulty increases every 30 seconds</p>
+                <p className="text-xs sm:text-sm opacity-75">Survive as long as possible - difficulty increases every 20 seconds</p>
               </div>
               <Button 
                 onClick={jumpFish}
