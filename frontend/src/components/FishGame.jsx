@@ -696,39 +696,37 @@ const FishGame = () => {
         {gameState === 'gameOver' && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg p-4">
             <Card className="p-4 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-sm w-full">
-              <h1 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">
-                🐠 Seaweed Swimmer
+              <h1 className="text-2xl sm:text-4xl font-bold text-white mb-4">
+                🐠 Game Over!
               </h1>
-              {gameState === 'gameOver' && (
-                <div className="text-white mb-3 sm:mb-4">
-                  <div className="text-xl sm:text-2xl mb-1 sm:mb-2">Game Over!</div>
-                  <div className="text-lg sm:text-xl">Final Score: {score}</div>
-                  {score === highScore && score > 0 && (
-                    <div className="text-yellow-400 text-base sm:text-lg">🏆 New High Score!</div>
-                  )}
-                </div>
-              )}
-              <div className="text-white mb-4 sm:mb-6 text-sm sm:text-base">
-                <p className="mb-1 sm:mb-2">Tap to make the fish swim up!</p>
-                <p className="mb-1 sm:mb-2">Navigate through the swaying seaweed forest</p>
-                <p className="text-xs sm:text-sm opacity-75">Survive as long as possible - difficulty increases every 20 seconds</p>
+              <div className="text-white mb-4">
+                <div className="text-xl sm:text-2xl mb-2">Final Score: {score}</div>
+                {score === highScore && score > 0 && (
+                  <div className="text-yellow-400 text-base sm:text-lg">🏆 New High Score!</div>
+                )}
+                {score >= 20 && (
+                  <div className="text-blue-300 mt-2">
+                    {score >= 100 ? '👑 Seaweed Master!' : score >= 60 ? '🥇 Gold Swimmer!' : score >= 40 ? '🥈 Silver Swimmer!' : '🥉 Bronze Swimmer!'}
+                  </div>
+                )}
               </div>
-              <Button 
-                onClick={jumpFish}
-                className="bg-orange-500 hover:bg-orange-600 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-lg w-full mb-3"
-              >
-                {gameState === 'menu' ? 'Start Game' : 'Play Again'}
-              </Button>
               
-              {gameState === 'gameOver' && (
+              <div className="space-y-3">
                 <Button 
-                  onClick={() => setGameState('welcome')}
+                  onClick={jumpFish}
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-lg w-full"
+                >
+                  🏊 Play Again
+                </Button>
+                
+                <Button 
+                  onClick={goToMenu}
                   variant="outline"
                   className="border-blue-400 text-blue-300 hover:bg-blue-800 px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-lg w-full"
                 >
-                  📖 Back to Instructions
+                  ← Back to Menu
                 </Button>
-              )}
+              </div>
             </Card>
           </div>
         )}
