@@ -519,23 +519,55 @@ const FishGame = () => {
           <div className="text-xs sm:text-sm opacity-75">Difficulty: {Math.floor(score / 20) + 1}</div>
         </div>
 
-        {/* Welcome Screen */}
-        {gameState === 'welcome' && (
+        {/* Main Menu */}
+        {gameState === 'menu' && (
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg p-4">
+            <Card className="p-6 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-md w-full">
+              <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                🐠 Seaweed Swimmer
+              </h1>
+              <p className="text-blue-200 mb-8 text-sm sm:text-base">
+                Navigate your fish through the underwater seaweed forest
+              </p>
+              
+              <div className="space-y-4">
+                <Button 
+                  onClick={startGame}
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 text-lg font-semibold w-full"
+                >
+                  🏊 Start Game
+                </Button>
+                
+                <Button 
+                  onClick={goToHowToPlay}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg font-semibold w-full"
+                >
+                  📖 How to Play
+                </Button>
+                
+                <Button 
+                  onClick={goToHighScores}
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 text-lg font-semibold w-full"
+                >
+                  🏆 High Scores
+                </Button>
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {/* How to Play Screen */}
+        {gameState === 'howToPlay' && (
           <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center rounded-lg p-4">
             <Card className="p-4 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-2xl w-full">
-              <div className="mb-6">
-                <h1 className="text-3xl sm:text-5xl font-bold text-white mb-3">
-                  🐠 Welcome to Seaweed Swimmer!
-                </h1>
-                <div className="text-lg sm:text-xl text-blue-200 mb-6">
-                  Navigate your fish through the underwater seaweed forest
-                </div>
-              </div>
+              <h1 className="text-2xl sm:text-4xl font-bold text-white mb-4">
+                📖 How to Play Seaweed Swimmer
+              </h1>
 
               <div className="grid md:grid-cols-2 gap-6 mb-8 text-white">
                 <div className="space-y-4">
                   <h2 className="text-xl sm:text-2xl font-semibold text-blue-300 mb-3">
-                    🎮 How to Play
+                    🎮 Game Controls
                   </h2>
                   <div className="space-y-3 text-sm sm:text-base text-left">
                     <div className="flex items-start space-x-3">
@@ -583,24 +615,85 @@ const FishGame = () => {
               </div>
 
               <div className="border-t border-blue-700 pt-6">
-                <div className="text-blue-200 mb-4 text-sm sm:text-base">
-                  <p className="mb-2">🎯 <strong>Goal:</strong> Beat your high score by surviving longer in the underwater seaweed forest!</p>
+                <div className="text-blue-200 mb-6 text-sm sm:text-base">
+                  <p className="mb-2">🎯 <strong>Goal:</strong> Beat your high score by surviving longer!</p>
                   <p>🌊 The seaweed moves naturally like real ocean vegetation - watch it sway and time your moves carefully.</p>
                 </div>
                 
                 <Button 
                   onClick={goToMenu}
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-8 sm:px-12 py-3 sm:py-4 text-lg sm:text-xl font-semibold w-full sm:w-auto"
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 text-lg w-full sm:w-auto"
                 >
-                  🐠 Start Swimming!
+                  ← Back to Menu
                 </Button>
               </div>
             </Card>
           </div>
         )}
 
-        {/* Menu/Game Over Overlay */}
-        {(gameState === 'menu' || gameState === 'gameOver') && (
+        {/* High Scores Screen */}
+        {gameState === 'highScores' && (
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg p-4">
+            <Card className="p-6 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-md w-full">
+              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+                🏆 High Scores
+              </h1>
+              
+              <div className="space-y-6">
+                <div className="bg-blue-800 rounded-lg p-4">
+                  <h2 className="text-lg font-semibold text-blue-300 mb-3">Your Best Score</h2>
+                  <div className="text-4xl font-bold text-white mb-2">{highScore}</div>
+                  <div className="text-blue-200 text-sm">
+                    {highScore === 0 ? 'No games played yet!' : `${highScore} seconds survived`}
+                  </div>
+                </div>
+
+                <div className="bg-blue-800 rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-blue-300 mb-3">Score Milestones</h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between text-blue-200">
+                      <span>🥉 Bronze Swimmer:</span>
+                      <span>20+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-blue-200">
+                      <span>🥈 Silver Swimmer:</span>
+                      <span>40+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-blue-200">
+                      <span>🥇 Gold Swimmer:</span>
+                      <span>60+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-yellow-400">
+                      <span>👑 Seaweed Master:</span>
+                      <span>100+ seconds</span>
+                    </div>
+                  </div>
+                </div>
+
+                {highScore >= 20 && (
+                  <div className="text-center">
+                    <div className="text-2xl mb-2">
+                      {highScore >= 100 ? '👑' : highScore >= 60 ? '🥇' : highScore >= 40 ? '🥈' : '🥉'}
+                    </div>
+                    <div className="text-blue-300 font-semibold">
+                      {highScore >= 100 ? 'Seaweed Master!' : highScore >= 60 ? 'Gold Swimmer!' : highScore >= 40 ? 'Silver Swimmer!' : 'Bronze Swimmer!'}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <Button 
+                onClick={goToMenu}
+                className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 text-lg w-full mt-6"
+              >
+                ← Back to Menu
+              </Button>
+            </Card>
+          </div>
+        )}
+
+        {/* Game Over Overlay */}
+        {gameState === 'gameOver' && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg p-4">
             <Card className="p-4 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-sm w-full">
               <h1 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">
