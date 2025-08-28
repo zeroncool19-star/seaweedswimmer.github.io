@@ -46,7 +46,7 @@ const FishGame = () => {
     difficulty: 1
   });
 
-  // Create seaweed obstacle
+  // Create seaweed obstacle with natural movement parameters
   const createSeaweed = (x) => {
     const minGapY = 120;
     const maxGapY = CANVAS_HEIGHT - SEAWEED_GAP - 120;
@@ -55,9 +55,22 @@ const FishGame = () => {
     return {
       x: x,
       gapY: gapY,
-      swayOffset: Math.random() * Math.PI * 2,
-      swaySpeed: 0.008 + Math.random() * 0.005, // Much slower sway like real seaweed
-      swayAmount: 20 + Math.random() * 15 // Variable sway amount
+      // Multiple wave parameters for natural movement
+      primaryWave: {
+        offset: Math.random() * Math.PI * 2,
+        speed: 0.003 + Math.random() * 0.002, // Much slower base movement
+        amplitude: 8 + Math.random() * 6 // Primary sway amount
+      },
+      secondaryWave: {
+        offset: Math.random() * Math.PI * 2,
+        speed: 0.007 + Math.random() * 0.004, // Faster secondary wave
+        amplitude: 3 + Math.random() * 3 // Smaller secondary movement
+      },
+      currentWave: {
+        offset: Math.random() * Math.PI * 2,
+        speed: 0.001 + Math.random() * 0.001, // Very slow current effect
+        amplitude: 12 + Math.random() * 8 // Gentle current sway
+      }
     };
   };
 
