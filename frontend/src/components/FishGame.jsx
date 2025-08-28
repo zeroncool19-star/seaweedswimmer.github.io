@@ -398,15 +398,28 @@ const FishGame = () => {
     gameLoopRef.current = requestAnimationFrame(gameLoop);
   }, [gameState, highScore, score]);
 
-  // Event listeners
+  // Event listeners with performance optimizations
   useEffect(() => {
+    let lastTapTime = 0;
+    const tapCooldown = 50; // Prevent excessive tapping lag
+    
     const handleClick = (e) => {
+      const now = Date.now();
+      if (now - lastTapTime < tapCooldown) return; // Throttle taps
+      
       e.preventDefault();
+      e.stopPropagation();
+      lastTapTime = now;
       jumpFish();
     };
 
     const handleTouch = (e) => {
+      const now = Date.now();
+      if (now - lastTapTime < tapCooldown) return; // Throttle taps
+      
       e.preventDefault();
+      e.stopPropagation();
+      lastTapTime = now;
       jumpFish();
     };
 
@@ -422,18 +435,23 @@ const FishGame = () => {
       e.preventDefault();
     };
 
-    // Prevent default touch behaviors to avoid scrolling
+    // Prevent default touch behaviors to avoid scrolling (passive: false for performance)
     const handleTouchMove = (e) => {
       e.preventDefault();
     };
 
     const canvas = canvasRef.current;
     if (canvas) {
-      canvas.addEventListener('click', handleClick);
+      // Use passive: false only where needed
+      canvas.addEventListener('click', handleClick, { passive: false });
       canvas.addEventListener('touchstart', handleTouch, { passive: false });
       canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-      canvas.addEventListener('contextmenu', handleContextMenu);
+      canvas.addEventListener('contextmenu', handleContextMenu, { passive: false });
       document.addEventListener('keydown', handleKeyPress);
+      
+      // Optimize canvas for performance
+      canvas.style.touchAction = 'none';
+      canvas.style.userSelect = 'none';
     }
 
     return () => {
