@@ -363,12 +363,6 @@ const FishGame = () => {
       // Draw bottom seaweed (growing upward from floor)
       const bottomHeight = CANVAS_HEIGHT - (seaweed.gapY + SEAWEED_GAP);
       drawSeaweedFrond(seaweed.x, seaweed.gapY + SEAWEED_GAP, bottomHeight, false);
-      
-      // Add seaweed base/roots (also sway slightly) - brighter green
-      const baseSway = totalSway * 0.2;
-      ctx.fillStyle = '#15803d'; // Brighter green for base
-      ctx.fillRect(seaweed.x - SEAWEED_WIDTH/2 + baseSway, 0, SEAWEED_WIDTH, 15); // Top base
-      ctx.fillRect(seaweed.x - SEAWEED_WIDTH/2 + baseSway, CANVAS_HEIGHT - 15, SEAWEED_WIDTH, 15); // Bottom base
     });
 
     // Draw fish (optimized rendering)
