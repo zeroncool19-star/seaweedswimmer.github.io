@@ -135,6 +135,11 @@ const FishGame = () => {
     }
   }, [gameState, initGame, score]);
 
+  // Handle welcome screen to menu transition
+  const goToMenu = useCallback(() => {
+    setGameState('menu');
+  }, []);
+
   // Check collision
   const checkCollision = (fish, seaweed) => {
     const fishLeft = fish.x - FISH_SIZE / 2;
