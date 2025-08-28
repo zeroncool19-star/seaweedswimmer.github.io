@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Ocean background -->
+    <path android:fillColor="#1e3a8a" android:pathData="M0,0h24v24h-24z"/>
+    
+    <!-- Fish -->
+    <path android:fillColor="#f97316" android:pathData="M5,9 Q8,7 12,9 Q14,10 12,13 Q8,15 5,13 Q4,11 5,9 Z"/>
+    
+    <!-- Fish tail -->
+    <path android:fillColor="#ea580c" android:pathData="M4,11 L2,8 L2,14 Z"/>
+    
+    <!-- Fish eye -->
+    <circle android:fillColor="#ffffff" android:cx="10" android:cy="10" android:r="1.5"/>
+    
+    <!-- Seaweed -->
+    <path android:fillColor="#16a34a" android:pathData="M18,24 Q19,20 18,16 Q20,12 18,8 Q17,6 18,0" android:strokeWidth="1" android:fillType="nonZero"/>
+    
+    <!-- Bubble -->
+    <circle android:fillColor="#87ceeb" android:cx="8" android:cy="5" android:r="1" android:alpha="0.7"/>
+</vector>
