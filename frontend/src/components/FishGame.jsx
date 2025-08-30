@@ -137,13 +137,28 @@ const FishGame = () => {
     }
   }, [gameState, initGame, score]);
 
-  // Navigation handlers
-  const goToMenu = useCallback(() => setGameState('menu'), []);
-  const goToHowToPlay = useCallback(() => setGameState('howToPlay'), []);
-  const goToHighScores = useCallback(() => setGameState('highScores'), []);
-  const startGame = useCallback(() => {
+  // Navigation handlers with ad integration
+  const goToMenu = useCallback(async () => {
+    setGameState('menu');
+    // Show banner ad on menu
+    await adServiceRef.current.showMenuBannerAd();
+  }, []);
+  
+  const goToHowToPlay = useCallback(async () => {
+    setGameState('howToPlay');
+    // Keep banner ad visible in how-to-play
+  }, []);
+  
+  const goToHighScores = useCallback(async () => {
+    setGameState('highScores');
+    // Keep banner ad visible in high scores
+  }, []);
+  
+  const startGame = useCallback(async () => {
     initGame();
     setGameState('playing');
+    // Hide ads during gameplay for better UX
+    await adServiceRef.current.hideGameplayAds();
   }, [initGame]);
 
   // Check collision
