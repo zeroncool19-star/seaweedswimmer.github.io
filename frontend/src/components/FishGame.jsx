@@ -500,15 +500,48 @@ const FishGame = () => {
     };
   }, [jumpFish]);
 
-  // Start game loop
+  // Initialize AdMob when component mounts
   useEffect(() => {
-    gameLoopRef.current = requestAnimationFrame(gameLoop);
-    return () => {
-      if (gameLoopRef.current) {
-        cancelAnimationFrame(gameLoopRef.current);
+    const initializeAds = async () => {
+      try {
+        await adServiceRef.current.initialize();
+        // Show initial banner ad on menu
+        if (gameState === 'menu') {
+          await adServiceRef.current.showMenuBannerAd();
+        }
+      } catch (error) {
+        console.log('Ad initialization skipped in web environment');
       }
     };
-  }, [gameLoop]);
+    
+    initializeAds();
+    
+    // Cleanup ads on unmount
+    return () => {
+      if (adServiceRef.current) {
+        adServiceRef.current.removeBannerAd();
+      }
+    };
+  }, []);
+
+  // Handle ad display based on game state
+  useEffect(() => {
+    const handleAdDisplay = async () => {
+      try {
+        if (gameState === 'menu' || gameState === 'howToPlay' || gameState === 'highScores') {
+          await adServiceRef.current.showMenuBannerAd();
+        } else if (gameState === 'playing') {
+          await adServiceRef.current.hideGameplayAds();
+        } else if (gameState === 'gameOver') {
+          await adServiceRef.current.showMenuBannerAd();
+        }
+      } catch (error) {
+        console.log('Ad management skipped in web environment');
+      }
+    };
+
+    handleAdDisplay();
+  }, [gameState]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-600 to-blue-800 p-2 sm:p-4">
