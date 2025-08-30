@@ -253,6 +253,8 @@ const FishGame = () => {
           setHighScore(newScore);
           localStorage.setItem('seaweedSwimmerHighScore', newScore.toString());
         }
+        // Show game over ad (revenue opportunity)
+        adServiceRef.current.showGameOverAd();
         return;
       }
       
