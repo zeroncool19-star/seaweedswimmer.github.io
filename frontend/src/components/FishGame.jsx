@@ -707,7 +707,7 @@ const FishGame = () => {
                 </div>
 
                 <div className="bg-blue-800 rounded-lg p-4">
-                  <h3 className="text-lg font-semibold text-blue-300 mb-3">Score Milestones</h3>
+                  <h3 className="text-lg font-semibold text-blue-300 mb-3">Achievement Milestones</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between text-blue-200">
                       <span>🥉 Bronze Swimmer:</span>
@@ -724,6 +724,30 @@ const FishGame = () => {
                     <div className="flex justify-between text-yellow-400">
                       <span>👑 Seaweed Master:</span>
                       <span>100+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-purple-400">
+                      <span>🏆 Ocean Champion:</span>
+                      <span>150+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-pink-400">
+                      <span>⭐ Deep Sea Explorer:</span>
+                      <span>200+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-cyan-400">
+                      <span>🌊 Current Rider:</span>
+                      <span>250+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-green-400">
+                      <span>🐠 Fish Whisperer:</span>
+                      <span>300+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-orange-400">
+                      <span>🔱 Poseidon's Chosen:</span>
+                      <span>400+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-red-400 font-bold">
+                      <span>🌟 Legendary Swimmer:</span>
+                      <span>500+ seconds</span>
                     </div>
                   </div>
                 </div>
