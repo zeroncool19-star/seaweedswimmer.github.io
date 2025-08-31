@@ -115,22 +115,17 @@ class AdService {
 
   // Revenue optimization: Show ads at strategic moments
   async showGameOverAd() {
-    // Show interstitial ad after game over (every 3rd game)
-    const gameCount = parseInt(localStorage.getItem('gameCount') || '0') + 1;
-    localStorage.setItem('gameCount', gameCount.toString());
-    
-    if (gameCount % 3 === 0) {
-      await this.showInterstitialAd();
-    }
+    // Show interstitial ad immediately when player dies (every time)
+    await this.showInterstitialAd();
   }
 
-  async showMenuBannerAd() {
-    // Show banner ad on menu screen
+  async showGameplayBannerAd() {
+    // Show banner ad during gameplay only
     await this.showBannerAd(BannerAdPosition.BOTTOM_CENTER);
   }
 
-  async hideGameplayAds() {
-    // Hide banner during gameplay for better UX
+  async hideAllAds() {
+    // Hide all ads when not in gameplay
     await this.hideBannerAd();
   }
 }
