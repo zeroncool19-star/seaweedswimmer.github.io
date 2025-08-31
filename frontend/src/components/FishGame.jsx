@@ -139,28 +139,32 @@ const FishGame = () => {
     }
   }, [gameState, initGame, score]);
 
-  // Navigation handlers with ad integration
+  // Navigation handlers with updated ad integration
   const goToMenu = useCallback(async () => {
     setGameState('menu');
-    // Show banner ad on menu
-    await adServiceRef.current.showMenuBannerAd();
+    // Hide all ads on menu screens
+    await adServiceRef.current.hideAllAds();
   }, []);
   
   const goToHowToPlay = useCallback(async () => {
     setGameState('howToPlay');
-    // Keep banner ad visible in how-to-play
+    // Hide all ads on instruction screens
+    await adServiceRef.current.hideAllAds();
   }, []);
   
   const goToHighScores = useCallback(async () => {
     setGameState('highScores');
-    // Keep banner ad visible in high scores
+    // Hide all ads on high score screens
+    await adServiceRef.current.hideAllAds();
   }, []);
   
   const startGame = useCallback(async () => {
     initGame();
     setGameState('playing');
-    // Hide ads during gameplay for better UX
-    await adServiceRef.current.hideGameplayAds();
+    // Show banner ad during gameplay only
+    setTimeout(() => {
+      adServiceRef.current.showGameplayBannerAd();
+    }, 4000); // Show after 3-second countdown + 1 second delay
   }, [initGame]);
 
   // Check collision
