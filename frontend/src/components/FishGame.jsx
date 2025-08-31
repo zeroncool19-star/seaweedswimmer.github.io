@@ -99,6 +99,7 @@ const FishGame = () => {
     game.seaweeds = [createSeaweed(CANVAS_WIDTH)];
     game.bubbles = Array.from({ length: 8 }, () => createBubble());
     game.startTime = Date.now();
+    game.gameStartDelay = 3000; // 3 second delay before physics start
     game.lastSeaweedSpawn = 0;
     game.difficulty = 1;
     // Clear cached gradient for new game
