@@ -559,13 +559,11 @@ const FishGame = () => {
   useEffect(() => {
     const handleAdDisplay = async () => {
       try {
-        if (gameState === 'menu' || gameState === 'howToPlay' || gameState === 'highScores') {
-          await adServiceRef.current.showMenuBannerAd();
-        } else if (gameState === 'playing') {
-          await adServiceRef.current.hideGameplayAds();
-        } else if (gameState === 'gameOver') {
-          await adServiceRef.current.showMenuBannerAd();
+        if (gameState === 'menu' || gameState === 'howToPlay' || gameState === 'highScores' || gameState === 'gameOver') {
+          // Hide all ads on non-gameplay screens
+          await adServiceRef.current.hideAllAds();
         }
+        // Banner ads are handled in startGame function for gameplay only
       } catch (error) {
         console.log('Ad management skipped in web environment');
       }
