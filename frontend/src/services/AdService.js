@@ -11,7 +11,7 @@ class AdService {
 
     // Production IDs (replace with your actual AdMob IDs)
     this.prodBannerAdId = 'ca-app-pub-9069068945892968/1870840975';
-    this.prodInterstitialAdId = 'ca-app-pub-9069068945892968/1870840975'; // Using banner ID for now
+    this.prodInterstitialAdId = 'ca-app-pub-9069068945892968/3810592690';
 
     this.bannerAdId = this.isTestMode ? this.testBannerAdId : this.prodBannerAdId;
     this.interstitialAdId = this.isTestMode ? this.testInterstitialAdId : this.prodInterstitialAdId;
