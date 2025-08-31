@@ -17,8 +17,8 @@
       "style": "dark"
     },
     "AdMob": {
-      "appId": "ca-app-pub-3940256099942544~3347511713",
-      "initializeForTesting": true
+      "appId": "ca-app-pub-9069068945892968~9222701474",
+      "initializeForTesting": false
     }
   }
 }
