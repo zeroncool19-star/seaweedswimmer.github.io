@@ -219,7 +219,7 @@ const FishGame = () => {
     // Update countdown display
     if (inStartDelay) {
       const remainingDelay = Math.max(0, game.gameStartDelay - gameRunningTime);
-      const countdownSeconds = Math.ceil(remainingDelay / 1000);
+      const countdownSeconds = remainingDelay > 100 ? Math.ceil(remainingDelay / 1000) : 0;
       if (countdownSeconds !== countdown) {
         setCountdown(countdownSeconds);
       }
