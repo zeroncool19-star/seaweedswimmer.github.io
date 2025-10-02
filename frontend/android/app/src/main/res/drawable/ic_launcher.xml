@@ -17,9 +17,9 @@
     <!-- Fish tail -->
     <path android:fillColor="#ea580c" android:pathData="M20,50 L10,35 L10,65 Z"/>
     
-    <!-- Fish eye -->
-    <circle android:fillColor="#ffffff" android:cx="45" android:cy="45" android:r="6"/>
-    <circle android:fillColor="#000000" android:cx="47" android:cy="43" android:r="3"/>
+    <!-- Fish eye (using path instead of circle) -->
+    <path android:fillColor="#ffffff" android:pathData="M45,39 a6,6 0 1,0 0,12 a6,6 0 1,0 0,-12"/>
+    <path android:fillColor="#000000" android:pathData="M47,40 a3,3 0 1,0 0,6 a3,3 0 1,0 0,-6"/>
     
     <!-- Fish fins -->
     <path android:fillColor="#fb923c" android:pathData="M30,55 Q25,65 35,60 Z"/>
@@ -28,8 +28,8 @@
     <path android:fillColor="#16a34a" android:pathData="M75,108 Q80,90 75,70 Q85,50 75,30 Q70,20 75,0" android:strokeWidth="4" android:fillType="nonZero"/>
     <path android:fillColor="#16a34a" android:pathData="M85,108 Q90,85 85,65 Q95,45 85,25 Q80,15 85,0" android:strokeWidth="3" android:fillType="nonZero"/>
     
-    <!-- Bubbles -->
-    <circle android:fillColor="#87ceeb" android:cx="35" android:cy="20" android:r="3" android:alpha="0.7"/>
-    <circle android:fillColor="#87ceeb" android:cx="65" android:cy="15" android:r="2" android:alpha="0.6"/>
-    <circle android:fillColor="#87ceeb" android:cx="50" android:cy="25" android:r="2.5" android:alpha="0.8"/>
+    <!-- Bubbles (using path instead of circle) -->
+    <path android:fillColor="#87ceeb" android:pathData="M35,17 a3,3 0 1,0 0,6 a3,3 0 1,0 0,-6" android:fillAlpha="0.7"/>
+    <path android:fillColor="#87ceeb" android:pathData="M65,13 a2,2 0 1,0 0,4 a2,2 0 1,0 0,-4" android:fillAlpha="0.6"/>
+    <path android:fillColor="#87ceeb" android:pathData="M50,22.5 a2.5,2.5 0 1,0 0,5 a2.5,2.5 0 1,0 0,-5" android:fillAlpha="0.8"/>
 </vector>
