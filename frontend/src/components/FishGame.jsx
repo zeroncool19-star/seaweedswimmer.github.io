@@ -231,14 +231,15 @@ const FishGame = () => {
     // Update countdown display - only show 3, 2, 1 during first 3 seconds
     if (inStartDelay) {
       const remainingDelay = Math.max(0, game.gameStartDelay - gameRunningTime);
-      // Show countdown only during first 3000ms
-      if (remainingDelay > 2000) {
-        const countdownSeconds = Math.ceil((remainingDelay - 2000) / 1000);
-        if (countdownSeconds !== countdown && countdownSeconds > 0) {
+      // Show countdown only during first 3000ms (3, 2, 1 each for 1 second)
+      if (remainingDelay >= 2000) {
+        // remainingDelay: 5000-4000 = "3", 4000-3000 = "2", 3000-2000 = "1"
+        const countdownSeconds = Math.floor((remainingDelay - 2000) / 1000) + 1;
+        if (countdownSeconds !== countdown && countdownSeconds > 0 && countdownSeconds <= 3) {
           setCountdown(countdownSeconds);
         }
       } else {
-        // Hide countdown immediately when entering grace period
+        // Hide countdown immediately when entering grace period (< 2000ms remaining)
         if (countdown !== 0) {
           setCountdown(0);
         }
