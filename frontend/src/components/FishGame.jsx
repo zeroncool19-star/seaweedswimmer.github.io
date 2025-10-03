@@ -599,13 +599,13 @@ const FishGame = () => {
           <div className="text-xs sm:text-sm opacity-75">Difficulty: {Math.floor(score / 20) + 1}</div>
         </div>
 
-        {/* Start Countdown Overlay */}
-        {gameState === 'playing' && countdown > 0 && (
+        {/* Tap to Start Overlay */}
+        {gameState === 'playing' && !gameStarted && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="text-center bg-black bg-opacity-50 rounded-lg p-8">
-              <div className="text-8xl font-bold text-white mb-4 animate-pulse">{countdown}</div>
-              <div className="text-2xl text-white opacity-75 mb-2">Get Ready!</div>
-              <div className="text-lg text-blue-200">Tap to swim up</div>
+            <div className="text-center bg-black bg-opacity-50 rounded-lg p-8 animate-pulse">
+              <div className="text-6xl font-bold text-white mb-4">👆</div>
+              <div className="text-4xl text-white font-bold mb-2">Tap to Start!</div>
+              <div className="text-xl text-blue-200">Tap screen to swim up</div>
             </div>
           </div>
         )}
