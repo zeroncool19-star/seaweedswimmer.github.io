@@ -683,11 +683,11 @@ const FishGame = () => {
                   <div className="space-y-3 text-sm sm:text-base text-left">
                     <div className="flex items-start space-x-3">
                       <span className="text-blue-400 text-lg">⏰</span>
-                      <p><strong>Every 20 seconds:</strong> Difficulty level increases</p>
+                      <p><strong>Every 60 seconds:</strong> Difficulty level increases</p>
                     </div>
                     <div className="flex items-start space-x-3">
                       <span className="text-purple-400 text-lg">🏃</span>
-                      <p><strong>Seaweed moves faster:</strong> Obstacles approach quicker</p>
+                      <p><strong>Seaweed moves faster:</strong> Obstacles approach significantly quicker</p>
                     </div>
                     <div className="flex items-start space-x-3">
                       <span className="text-pink-400 text-lg">🐟</span>
