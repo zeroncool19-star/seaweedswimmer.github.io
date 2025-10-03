@@ -76,7 +76,12 @@ if (gameStarted) {
 - ✅ "Tap to Start" overlay displays correctly
 - ✅ Fish is visible and centered before first tap
 - ✅ Seaweed sways naturally in background
-- ✅ First tap initiates gameplay and scoring
+- ✅ **First tap initiates gameplay - fish starts moving immediately**
+- ✅ **Physics apply correctly - gravity, velocity, rotation all working**
+- ✅ **Score increments properly (time-based scoring works)**
+- ✅ **Multiple taps make fish jump up**
+- ✅ **Collisions detected - game over screen appears**
+- ✅ **High score tracking works**
 - ✅ No crashes or JavaScript errors
 
 ## Build Information
