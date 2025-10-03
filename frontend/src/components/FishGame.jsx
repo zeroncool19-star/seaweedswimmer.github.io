@@ -222,56 +222,29 @@ const FishGame = () => {
       return;
     }
 
-    // If game hasn't started (no tap yet), keep fish centered and skip physics
-    if (!gameStarted) {
-      game.fish.y = CANVAS_HEIGHT / 2;
-      game.fish.velocity = 0;
-      game.fish.rotation = 0;
-      
-      // Draw everything but don't apply physics or collisions
-      drawGame();
-      gameLoopRef.current = requestAnimationFrame(gameLoop);
-      return;
-    }
-    
-    // Update score based on time (only after first tap)
-    const gameRunningTime = currentTime - game.startTime;
-    const newScore = Math.floor(gameRunningTime / 1000);
-    if (newScore !== score) {
-      setScore(newScore);
-    }
-
-    // Update difficulty every 20 points and increase fish speed
-    game.difficulty = Math.floor(newScore / 20) + 1;
-    const currentSpeed = BASE_SEAWEED_SPEED + (game.difficulty - 1) * 0.4;
-    
-    // Increase fish movement speed slightly with difficulty
-    const fishSpeedMultiplier = 1 + (game.difficulty - 1) * 0.05;
-    
-    // Update fish physics with speed multiplier
-    game.fish.velocity += GRAVITY * fishSpeedMultiplier;
-    game.fish.y += game.fish.velocity;
-    game.fish.rotation = Math.max(-30, Math.min(30, game.fish.velocity * 3));
-
-    // Check bounds
-    if (game.fish.y < 0 || game.fish.y > CANVAS_HEIGHT) {
-      setGameState('gameOver');
-      if (newScore > highScore) {
-        setHighScore(newScore);
-        localStorage.setItem('seaweedSwimmerHighScore', newScore.toString());
+    // Only apply physics and score updates after first tap
+    if (gameStarted) {
+      // Update score based on time (only after first tap)
+      const gameRunningTime = currentTime - game.startTime;
+      const newScore = Math.floor(gameRunningTime / 1000);
+      if (newScore !== score) {
+        setScore(newScore);
       }
-      // Show interstitial ad when player dies
-      adServiceRef.current.showGameOverAd();
-      return;
-    }
 
-    // Update seaweeds (performance optimized)
-    for (let i = game.seaweeds.length - 1; i >= 0; i--) {
-      const seaweed = game.seaweeds[i];
-      seaweed.x -= currentSpeed;
+      // Update difficulty every 20 points and increase fish speed
+      game.difficulty = Math.floor(newScore / 20) + 1;
+      const currentSpeed = BASE_SEAWEED_SPEED + (game.difficulty - 1) * 0.4;
       
-      // Check collision (optimized collision detection)
-      if (checkCollision(game.fish, seaweed)) {
+      // Increase fish movement speed slightly with difficulty
+      const fishSpeedMultiplier = 1 + (game.difficulty - 1) * 0.05;
+      
+      // Update fish physics with speed multiplier
+      game.fish.velocity += GRAVITY * fishSpeedMultiplier;
+      game.fish.y += game.fish.velocity;
+      game.fish.rotation = Math.max(-30, Math.min(30, game.fish.velocity * 3));
+
+      // Check bounds
+      if (game.fish.y < 0 || game.fish.y > CANVAS_HEIGHT) {
         setGameState('gameOver');
         if (newScore > highScore) {
           setHighScore(newScore);
@@ -281,29 +254,52 @@ const FishGame = () => {
         adServiceRef.current.showGameOverAd();
         return;
       }
-      
-      // Remove off-screen seaweeds
-      if (seaweed.x < -SEAWEED_WIDTH) {
-        game.seaweeds.splice(i, 1);
-      }
-    }
-    
-    // Add new seaweeds with unpredictable spacing
-    const randomSpacing = 350 + Math.random() * 200;
-    const lastSeaweed = game.seaweeds[game.seaweeds.length - 1];
-    
-    if (game.seaweeds.length === 0 || (lastSeaweed && lastSeaweed.x < CANVAS_WIDTH - randomSpacing)) {
-      game.seaweeds.push(createSeaweed(CANVAS_WIDTH + SEAWEED_WIDTH));
-    }
 
-    // Update bubbles (performance optimized)
-    for (let i = 0; i < game.bubbles.length; i++) {
-      const bubble = game.bubbles[i];
-      bubble.y -= bubble.speed;
-      if (bubble.y < -20) {
-        bubble.y = CANVAS_HEIGHT + 20;
-        bubble.x = Math.random() * CANVAS_WIDTH;
+      // Update seaweeds (performance optimized)
+      for (let i = game.seaweeds.length - 1; i >= 0; i--) {
+        const seaweed = game.seaweeds[i];
+        seaweed.x -= currentSpeed;
+        
+        // Check collision (optimized collision detection)
+        if (checkCollision(game.fish, seaweed)) {
+          setGameState('gameOver');
+          if (newScore > highScore) {
+            setHighScore(newScore);
+            localStorage.setItem('seaweedSwimmerHighScore', newScore.toString());
+          }
+          // Show interstitial ad when player dies
+          adServiceRef.current.showGameOverAd();
+          return;
+        }
+        
+        // Remove off-screen seaweeds
+        if (seaweed.x < -SEAWEED_WIDTH) {
+          game.seaweeds.splice(i, 1);
+        }
       }
+      
+      // Add new seaweeds with unpredictable spacing
+      const randomSpacing = 350 + Math.random() * 200;
+      const lastSeaweed = game.seaweeds[game.seaweeds.length - 1];
+      
+      if (game.seaweeds.length === 0 || (lastSeaweed && lastSeaweed.x < CANVAS_WIDTH - randomSpacing)) {
+        game.seaweeds.push(createSeaweed(CANVAS_WIDTH + SEAWEED_WIDTH));
+      }
+
+      // Update bubbles (performance optimized)
+      for (let i = 0; i < game.bubbles.length; i++) {
+        const bubble = game.bubbles[i];
+        bubble.y -= bubble.speed;
+        if (bubble.y < -20) {
+          bubble.y = CANVAS_HEIGHT + 20;
+          bubble.x = Math.random() * CANVAS_WIDTH;
+        }
+      }
+    } else {
+      // Before first tap: keep fish centered and stationary
+      game.fish.y = CANVAS_HEIGHT / 2;
+      game.fish.velocity = 0;
+      game.fish.rotation = 0;
     }
 
     // Draw bubbles (batch rendering)
