@@ -222,40 +222,34 @@ const FishGame = () => {
       return;
     }
 
-    // Check if still in starting delay period
-    const gameRunningTime = currentTime - game.startTime;
-    const inStartDelay = gameRunningTime < game.gameStartDelay;
-    
-    // Update countdown display - only show 3, 2, 1 during first 3 seconds
-    if (gameRunningTime < 3000) {
-      // Show countdown only during first 3000ms (3, 2, 1 each for 1 second)
-      const countdownSeconds = Math.ceil((3000 - gameRunningTime) / 1000);
-      if (countdownSeconds !== countdown && countdownSeconds > 0 && countdownSeconds <= 3) {
-        setCountdown(countdownSeconds);
-      }
-    } else {
-      // Hide countdown after 3 seconds
-      if (countdown !== 0) {
-        setCountdown(0);
-      }
+    // If game hasn't started (no tap yet), keep fish centered and skip physics
+    if (!gameStarted) {
+      game.fish.y = CANVAS_HEIGHT / 2;
+      game.fish.velocity = 0;
+      game.fish.rotation = 0;
+      
+      // Draw everything but don't apply physics or collisions
+      drawGame();
+      gameLoopRef.current = requestAnimationFrame(gameLoop);
+      return;
     }
     
-    // Update score based on time (only after delay period)
-    const newScore = inStartDelay ? 0 : Math.floor((gameRunningTime - game.gameStartDelay) / 1000);
+    // Update score based on time (only after first tap)
+    const gameRunningTime = currentTime - game.startTime;
+    const newScore = Math.floor(gameRunningTime / 1000);
     if (newScore !== score) {
       setScore(newScore);
     }
 
     // Update difficulty every 20 points and increase fish speed
     game.difficulty = Math.floor(newScore / 20) + 1;
-    const currentSpeed = inStartDelay ? BASE_SEAWEED_SPEED * 0.5 : BASE_SEAWEED_SPEED + (game.difficulty - 1) * 0.4;
+    const currentSpeed = BASE_SEAWEED_SPEED + (game.difficulty - 1) * 0.4;
     
     // Increase fish movement speed slightly with difficulty
     const fishSpeedMultiplier = 1 + (game.difficulty - 1) * 0.05;
     
-    // Update fish physics with speed multiplier (no gravity during start delay)
-    const adjustedGravity = inStartDelay ? 0 : GRAVITY * fishSpeedMultiplier;
-    game.fish.velocity += adjustedGravity;
+    // Update fish physics with speed multiplier
+    game.fish.velocity += GRAVITY * fishSpeedMultiplier;
     game.fish.y += game.fish.velocity;
     game.fish.rotation = Math.max(-30, Math.min(30, game.fish.velocity * 3));
 
