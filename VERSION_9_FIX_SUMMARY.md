@@ -8,32 +8,28 @@
 1. **First Issue:** An erroneous call to a non-existent `drawGame()` function was accidentally added at line 232 of `FishGame.jsx`
 2. **Second Issue:** React `useCallback` dependency arrays were missing `gameStarted`, causing stale closure values. The game loop and jump function always thought `gameStarted` was `false`, so physics never applied.
 
-## Solution Implemented
+## Solutions Implemented
+
+### Fix #1: Removed `drawGame()` Call
 Restructured the game loop logic in `frontend/src/components/FishGame.jsx`:
 
-### Before (Broken):
+**Before (Broken):**
 ```javascript
-// If game hasn't started (no tap yet), keep fish centered and skip physics
 if (!gameStarted) {
   game.fish.y = CANVAS_HEIGHT / 2;
   game.fish.velocity = 0;
   game.fish.rotation = 0;
   
-  // Draw everything but don't apply physics or collisions
   drawGame(); // ❌ This function doesn't exist!
   gameLoopRef.current = requestAnimationFrame(gameLoop);
   return;
 }
-
-// Update score based on time (only after first tap)
-// ... physics code ...
 ```
 
-### After (Fixed):
+**After (Fixed):**
 ```javascript
 // Only apply physics and score updates after first tap
 if (gameStarted) {
-  // Update score based on time (only after first tap)
   // ... all physics, scoring, collision code ...
 } else {
   // Before first tap: keep fish centered and stationary
@@ -41,8 +37,29 @@ if (gameStarted) {
   game.fish.velocity = 0;
   game.fish.rotation = 0;
 }
-
 // Game continues to draw naturally (bubbles, seaweed, fish) after this block
+```
+
+### Fix #2: Added `gameStarted` to Dependency Arrays
+
+**Problem:** React `useCallback` hooks were missing `gameStarted` in their dependency arrays, causing stale closures.
+
+**Fixed in `gameLoop` function (line 454):**
+```javascript
+// Before:
+}, [gameState, highScore, score]);
+
+// After:
+}, [gameState, highScore, score, gameStarted]);
+```
+
+**Fixed in `jumpFish` function (line 146):**
+```javascript
+// Before:
+}, [gameState, initGame, score]);
+
+// After:
+}, [gameState, initGame, score, gameStarted]);
 ```
 
 ## Key Changes
