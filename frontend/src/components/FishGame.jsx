@@ -167,10 +167,10 @@ const FishGame = () => {
   const startGame = useCallback(async () => {
     initGame();
     setGameState('playing');
-    // Show banner ad during gameplay only
+    // Show banner ad after a short delay
     setTimeout(() => {
       adServiceRef.current.showGameplayBannerAd();
-    }, 7000); // Show after 6-second countdown/grace + 1 second delay
+    }, 3000); // Show after 3 seconds
   }, [initGame]);
 
   // Check collision
