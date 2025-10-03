@@ -111,9 +111,12 @@ const FishGame = () => {
   // Handle fish jump with haptic feedback and speed scaling
   const jumpFish = useCallback(async () => {
     if (gameState === 'playing') {
-      // Prevent jumping during countdown
-      if (countdown > 0) {
-        return;
+      // Prevent jumping during the entire start delay period (countdown + grace period)
+      const gameRunningTime = Date.now() - gameRef.current.startTime;
+      const inStartDelay = gameRunningTime < gameRef.current.gameStartDelay;
+      
+      if (inStartDelay) {
+        return; // Block all taps during countdown AND grace period
       }
       
       // Scale jump force with difficulty for consistent feel
