@@ -152,12 +152,12 @@ class AudioService {
     osc.stop(now + 0.2);
   }
 
-  // Melodic layer (peaceful, slow)
+  // Melodic layer (lively, upbeat)
   createMelodicLayer(startTime) {
     if (!this.audioContext) return;
     
-    const notes = [330, 370, 415, 494, 554]; // E4, F#4, G#4, B4, C#5 (pentatonic scale)
-    const noteDuration = 4; // 4 seconds per note
+    const notes = [330, 370, 415, 494, 554, 659, 740]; // Extended pentatonic scale
+    const noteDuration = 0.8; // Much faster - 0.8 seconds per note
     
     const playNote = (noteIndex, time) => {
       if (!this.isPlaying) return;
