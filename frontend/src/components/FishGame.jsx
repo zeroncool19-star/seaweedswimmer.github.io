@@ -648,7 +648,7 @@ const FishGame = () => {
           <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center rounded-lg p-4">
             <Card className="p-4 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-2xl w-full">
               <h1 className="text-2xl sm:text-4xl font-bold text-white mb-4">
-                📖 How to Play Seaweed Sprint
+                📖 How to Play Seaweed Swimmer
               </h1>
 
               <div className="grid md:grid-cols-2 gap-6 mb-8 text-white">
