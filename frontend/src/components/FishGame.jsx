@@ -871,6 +871,85 @@ const FishGame = () => {
           </div>
         )}
 
+        {/* Settings Screen */}
+        {gameState === 'settings' && (
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg p-4">
+            <Card className="p-6 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-md w-full">
+              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+                ⚙️ Settings
+              </h1>
+              
+              <div className="space-y-6 mb-8">
+                {/* Music Toggle */}
+                <div className="bg-blue-800 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-2xl">🎵</span>
+                      <div className="text-left">
+                        <div className="text-white font-semibold">Music</div>
+                        <div className="text-blue-300 text-sm">Underwater ambient sounds</div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        const newValue = !musicEnabled;
+                        setMusicEnabled(newValue);
+                        audioServiceRef.current.setMusicEnabled(newValue);
+                        localStorage.setItem('seaweedSwimmerMusic', newValue.toString());
+                      }}
+                      className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                        musicEnabled ? 'bg-green-500' : 'bg-gray-600'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                          musicEnabled ? 'translate-x-7' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Haptics Toggle */}
+                <div className="bg-blue-800 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-2xl">📳</span>
+                      <div className="text-left">
+                        <div className="text-white font-semibold">Vibration</div>
+                        <div className="text-blue-300 text-sm">Haptic feedback on tap</div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        const newValue = !hapticsEnabled;
+                        setHapticsEnabled(newValue);
+                        localStorage.setItem('seaweedSwimmerHaptics', newValue.toString());
+                      }}
+                      className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                        hapticsEnabled ? 'bg-green-500' : 'bg-gray-600'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                          hapticsEnabled ? 'translate-x-7' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <Button 
+                onClick={goToMenu}
+                className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 text-lg w-full"
+              >
+                ← Back to Menu
+              </Button>
+            </Card>
+          </div>
+        )}
+
         {/* Game Over Overlay */}
         {gameState === 'gameOver' && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-lg p-4">
