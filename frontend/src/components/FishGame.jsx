@@ -231,8 +231,13 @@ const FishGame = () => {
     const ctx = canvas.getContext('2d');
     const game = gameRef.current;
 
-    // Use requestAnimationFrame timing for smooth animation
+    // Calculate delta time for frame-rate independent movement
     const currentTime = Date.now();
+    const deltaTime = (currentTime - game.lastFrameTime) / 16.67; // Normalize to 60fps
+    game.lastFrameTime = currentTime;
+    
+    // Cap delta time to prevent huge jumps (e.g., when tab loses focus)
+    const clampedDelta = Math.min(deltaTime, 3);
     
     // Clear canvas with brighter underwater gradient (optimize by caching gradient)
     if (!gameRef.current.backgroundGradient) {
@@ -261,14 +266,14 @@ const FishGame = () => {
 
       // Update difficulty every 20 points and increase fish speed
       game.difficulty = Math.floor(newScore / 20) + 1;
-      const currentSpeed = BASE_SEAWEED_SPEED + (game.difficulty - 1) * 0.6;
+      const currentSpeed = (BASE_SEAWEED_SPEED + (game.difficulty - 1) * 0.6) * clampedDelta;
       
       // Increase fish movement speed slightly with difficulty
       const fishSpeedMultiplier = 1 + (game.difficulty - 1) * 0.05;
       
-      // Update fish physics with speed multiplier
-      game.fish.velocity += GRAVITY * fishSpeedMultiplier;
-      game.fish.y += game.fish.velocity;
+      // Update fish physics with speed multiplier and delta time
+      game.fish.velocity += GRAVITY * fishSpeedMultiplier * clampedDelta;
+      game.fish.y += game.fish.velocity * clampedDelta;
       game.fish.rotation = Math.max(-30, Math.min(30, game.fish.velocity * 3));
 
       // Check bounds
