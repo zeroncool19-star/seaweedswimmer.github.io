@@ -347,6 +347,120 @@ class AudioService {
     playPad(0, startTime);
   }
 
+  // Arpeggio layer (adds movement and texture)
+  createArpeggio(startTime) {
+    if (!this.audioContext) return;
+    
+    const arpeggioPattern = [440, 554, 659, 554]; // A, C#, E, C# pattern
+    const noteInterval = 0.2;
+    
+    const playArp = (noteIndex, time) => {
+      if (!this.isPlaying) return;
+      
+      const osc = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
+      const filter = this.audioContext.createBiquadFilter();
+      
+      osc.type = 'sine';
+      osc.frequency.value = arpeggioPattern[noteIndex];
+      
+      filter.type = 'bandpass';
+      filter.frequency.value = 2500;
+      filter.Q.value = 2;
+      
+      gainNode.gain.value = 0.06;
+      gainNode.gain.exponentialRampToValueAtTime(0.001, time + noteInterval);
+      
+      osc.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(this.musicGainNode);
+      
+      osc.start(time);
+      osc.stop(time + noteInterval);
+      
+      const nextIndex = (noteIndex + 1) % arpeggioPattern.length;
+      const nextTime = time + noteInterval;
+      
+      if (nextTime - this.audioContext.currentTime < 60) {
+        setTimeout(() => playArp(nextIndex, nextTime), (noteInterval - 0.05) * 1000);
+      }
+    };
+    
+    playArp(0, startTime);
+  }
+
+  // Soft drums (gentle rhythm)
+  createSoftDrums(startTime) {
+    if (!this.audioContext) return;
+    
+    const beatInterval = 0.5; // 120 BPM
+    
+    const playDrum = (time, isAccent) => {
+      if (!this.isPlaying) return;
+      
+      const osc = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
+      const filter = this.audioContext.createBiquadFilter();
+      
+      osc.type = 'sine';
+      osc.frequency.value = 80;
+      osc.frequency.exponentialRampToValueAtTime(40, time + 0.05);
+      
+      filter.type = 'lowpass';
+      filter.frequency.value = 150;
+      
+      const volume = isAccent ? 0.12 : 0.06;
+      gainNode.gain.value = volume;
+      gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.15);
+      
+      osc.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(this.musicGainNode);
+      
+      osc.start(time);
+      osc.stop(time + 0.15);
+      
+      const nextTime = time + beatInterval;
+      const nextIsAccent = !isAccent;
+      
+      if (nextTime - this.audioContext.currentTime < 60) {
+        setTimeout(() => playDrum(nextTime, nextIsAccent), (beatInterval - 0.05) * 1000);
+      }
+    };
+    
+    playDrum(startTime, true);
+  }
+
+  // Ambient pad (underwater atmosphere)
+  createAmbientPad(startTime) {
+    if (!this.audioContext) return;
+    
+    const padNotes = [220, 277.18, 329.63]; // A minor triad
+    
+    padNotes.forEach((freq) => {
+      const osc = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
+      const filter = this.audioContext.createBiquadFilter();
+      
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      
+      filter.type = 'lowpass';
+      filter.frequency.value = 800;
+      
+      gainNode.gain.value = 0;
+      gainNode.gain.linearRampToValueAtTime(0.03, startTime + 2);
+      
+      osc.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(this.musicGainNode);
+      
+      osc.start(startTime);
+      
+      this.musicNodes.push(osc);
+    });
+  }
+
   // Hi-hat layer (adds energy and rhythm)
   createHiHatLayer(startTime) {
     if (!this.audioContext) return;
