@@ -170,12 +170,12 @@ class AudioService {
       osc.frequency.value = notes[noteIndex];
       
       filter.type = 'lowpass';
-      filter.frequency.value = 2000;
-      filter.Q.value = 1;
+      filter.frequency.value = 3000;
+      filter.Q.value = 2;
       
       gainNode.gain.value = 0;
-      gainNode.gain.linearRampToValueAtTime(0.08, time + 0.5);
-      gainNode.gain.linearRampToValueAtTime(0.08, time + noteDuration - 0.5);
+      gainNode.gain.linearRampToValueAtTime(0.12, time + 0.1);
+      gainNode.gain.linearRampToValueAtTime(0.12, time + noteDuration - 0.1);
       gainNode.gain.linearRampToValueAtTime(0, time + noteDuration);
       
       osc.connect(filter);
