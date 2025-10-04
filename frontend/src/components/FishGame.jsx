@@ -48,6 +48,7 @@ const FishGame = () => {
       rotation: 0
     },
     seaweeds: [],
+    lastFrameTime: Date.now(),
     bubbles: [],
     startTime: 0,
     lastSeaweedSpawn: 0,
