@@ -56,10 +56,14 @@ class AdService {
 
   async showBannerAd(position = BannerAdPosition.BOTTOM_CENTER) {
     if (!this.isAdMobInitialized) {
+      console.log('⚠️ AdMob not initialized, initializing now...');
       await this.initialize();
     }
 
     try {
+      // First, remove any existing banner
+      await this.removeBannerAd().catch(() => {});
+      
       const options = {
         adId: this.bannerAdId,
         adSize: BannerAdSize.BANNER,
@@ -68,11 +72,13 @@ class AdService {
         isTesting: this.isTestMode,
       };
 
+      console.log('🎯 Attempting to show banner ad with options:', options);
       await AdMob.showBanner(options);
-      console.log('✅ Banner ad displayed');
+      console.log('✅ Banner ad displayed successfully');
       
     } catch (error) {
       console.error('❌ Failed to show banner ad:', error);
+      console.error('Error details:', JSON.stringify(error));
     }
   }
 
