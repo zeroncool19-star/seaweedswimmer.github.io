@@ -202,6 +202,49 @@ class AudioService {
     playNote(0, startTime);
   }
 
+  // Rhythmic percussion layer (lively beat)
+  createRhythmLayer(startTime) {
+    if (!this.audioContext) return;
+    
+    const beatInterval = 0.4; // Fast beat - every 0.4 seconds
+    
+    const playBeat = (time, isAccent) => {
+      if (!this.isPlaying) return;
+      
+      const osc = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
+      const filter = this.audioContext.createBiquadFilter();
+      
+      osc.type = 'sine';
+      osc.frequency.value = isAccent ? 150 : 100;
+      osc.frequency.exponentialRampToValueAtTime(50, time + 0.05);
+      
+      filter.type = 'highpass';
+      filter.frequency.value = 80;
+      
+      const volume = isAccent ? 0.15 : 0.08;
+      gainNode.gain.value = volume;
+      gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.1);
+      
+      osc.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(this.musicGainNode);
+      
+      osc.start(time);
+      osc.stop(time + 0.1);
+      
+      // Schedule next beat
+      const nextTime = time + beatInterval;
+      const nextIsAccent = !isAccent; // Alternate between accent and non-accent
+      
+      if (nextTime - this.audioContext.currentTime < 60) {
+        setTimeout(() => playBeat(nextTime, nextIsAccent), (beatInterval - 0.05) * 1000);
+      }
+    };
+    
+    playBeat(startTime, true);
+  }
+
   // Water movement ambience (subtle noise)
   createWaterAmbience(startTime) {
     if (!this.audioContext) return;
