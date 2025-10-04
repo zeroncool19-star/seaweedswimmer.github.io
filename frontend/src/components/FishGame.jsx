@@ -771,7 +771,7 @@ const FishGame = () => {
                   </div>
                 </div>
 
-                <div className="bg-blue-800 rounded-lg p-4">
+                <div className="bg-blue-800 rounded-lg p-4 max-h-96 overflow-y-auto">
                   <h3 className="text-lg font-semibold text-blue-300 mb-3">Achievement Milestones</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between text-blue-200">
@@ -810,9 +810,29 @@ const FishGame = () => {
                       <span>🔱 Poseidon's Chosen:</span>
                       <span>400+ seconds</span>
                     </div>
-                    <div className="flex justify-between text-red-400 font-bold">
+                    <div className="flex justify-between text-red-400">
                       <span>🌟 Legendary Swimmer:</span>
                       <span>500+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-amber-400">
+                      <span>⚡ Storm Breaker:</span>
+                      <span>600+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-indigo-400">
+                      <span>🌌 Abyssal Master:</span>
+                      <span>700+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-violet-400">
+                      <span>💎 Diamond Swimmer:</span>
+                      <span>800+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-rose-400">
+                      <span>🦈 Apex Predator:</span>
+                      <span>900+ seconds</span>
+                    </div>
+                    <div className="flex justify-between text-yellow-300 font-bold">
+                      <span>👑 Ocean Deity:</span>
+                      <span>1000+ seconds</span>
                     </div>
                   </div>
                 </div>
