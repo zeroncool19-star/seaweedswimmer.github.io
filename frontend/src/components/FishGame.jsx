@@ -20,10 +20,13 @@ const FishGame = () => {
   const canvasRef = useRef(null);
   const gameLoopRef = useRef(null);
   const adServiceRef = useRef(new AdService());
-  const [gameState, setGameState] = useState('menu'); // menu, howToPlay, highScores, playing, gameOver
+  const audioServiceRef = useRef(new AudioService());
+  const [gameState, setGameState] = useState('menu'); // menu, howToPlay, highScores, settings, playing, gameOver
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(parseInt(localStorage.getItem('seaweedSwimmerHighScore') || '0'));
   const [gameStarted, setGameStarted] = useState(false); // Track if first tap happened
+  const [musicEnabled, setMusicEnabled] = useState(true);
+  const [hapticsEnabled, setHapticsEnabled] = useState(true);
 
   // Game constants
   const CANVAS_WIDTH = 800;
