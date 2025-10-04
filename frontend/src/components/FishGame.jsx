@@ -720,16 +720,18 @@ const FishGame = () => {
       
       {/* Only show game canvas when playing or game over */}
       {(gameState === 'playing' || gameState === 'gameOver') && (
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-b from-blue-600 to-blue-800">
           <canvas
             ref={canvasRef}
             width={CANVAS_WIDTH}
             height={CANVAS_HEIGHT}
             className="cursor-pointer touch-none select-none"
             style={{ 
-              width: '100vw', 
-              height: '100vh',
-              objectFit: 'cover'
+              maxWidth: '100vw', 
+              maxHeight: '100vh',
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain'
             }}
           />
           
