@@ -276,6 +276,9 @@ const FishGame = () => {
           setHighScore(newScore);
           localStorage.setItem('seaweedSwimmerHighScore', newScore.toString());
         }
+        // Play collision sound and stop music
+        audioServiceRef.current.playCollisionSound();
+        audioServiceRef.current.stopMusic();
         // Show interstitial ad when player dies
         adServiceRef.current.showGameOverAd();
         return;
@@ -293,6 +296,9 @@ const FishGame = () => {
             setHighScore(newScore);
             localStorage.setItem('seaweedSwimmerHighScore', newScore.toString());
           }
+          // Play collision sound and stop music
+          audioServiceRef.current.playCollisionSound();
+          audioServiceRef.current.stopMusic();
           // Show interstitial ad when player dies
           adServiceRef.current.showGameOverAd();
           return;
