@@ -1010,8 +1010,7 @@ const FishGame = () => {
             </Card>
           </div>
         )}
-      </div>
-      
+    
       {(gameState === 'menu' || gameState === 'playing') && (
         <div className="mt-2 sm:mt-4 text-center text-white">
           <p className="text-xs sm:text-sm opacity-75">
