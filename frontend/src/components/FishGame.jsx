@@ -683,6 +683,13 @@ const FishGame = () => {
                 >
                   🏆 High Scores
                 </Button>
+                
+                <Button 
+                  onClick={goToSettings}
+                  className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 text-lg font-semibold w-full"
+                >
+                  ⚙️ Settings
+                </Button>
               </div>
             </Card>
           </div>
