@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import AdService from '../services/AdService';
+import AudioService from '../services/AudioService';
 
 // Import Capacitor plugins for mobile features
 let Haptics, StatusBar, SplashScreen;
