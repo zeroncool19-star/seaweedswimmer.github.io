@@ -720,25 +720,22 @@ const FishGame = () => {
       
       {/* Only show game canvas when playing or game over */}
       {(gameState === 'playing' || gameState === 'gameOver') && (
-        <div className="relative w-full h-full flex items-center justify-center bg-gradient-to-b from-blue-600 to-blue-800">
+        <div className="relative w-full h-full">
           <canvas
             ref={canvasRef}
             width={CANVAS_WIDTH}
             height={CANVAS_HEIGHT}
-            className="cursor-pointer touch-none select-none"
+            className="cursor-pointer touch-none select-none absolute inset-0"
             style={{ 
-              maxWidth: '100vw', 
-              maxHeight: '100vh',
-              width: '100%',
-              height: '100%',
-              objectFit: 'contain'
+              width: '100%', 
+              height: '100%'
             }}
           />
           
           {/* Game UI Overlay */}
           {gameState === 'playing' && (
-            <div className="absolute top-2 left-2 text-white text-sm sm:text-base sm:top-4 sm:left-4">
-              <div className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Score: {score}</div>
+            <div className="absolute top-12 left-4 text-white text-sm sm:text-base sm:top-16 sm:left-6 z-10 bg-black bg-opacity-40 rounded-lg p-3">
+              <div className="text-xl sm:text-2xl font-bold mb-1">Score: {score}</div>
               <div className="text-base sm:text-lg">High Score: {highScore}</div>
               <div className="text-xs sm:text-sm opacity-75">Difficulty: {Math.floor(score / 20) + 1}</div>
             </div>
