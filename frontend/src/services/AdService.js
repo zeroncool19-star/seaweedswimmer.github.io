@@ -93,20 +93,24 @@ class AdService {
 
   async showInterstitialAd() {
     if (!this.isAdMobInitialized) {
+      console.log('⚠️ AdMob not initialized, initializing now...');
       await this.initialize();
     }
 
     try {
+      console.log('🎯 Preparing interstitial ad...');
       await AdMob.prepareInterstitial({
         adId: this.interstitialAdId,
         isTesting: this.isTestMode,
       });
 
+      console.log('🎯 Showing interstitial ad...');
       await AdMob.showInterstitial();
-      console.log('✅ Interstitial ad displayed');
+      console.log('✅ Interstitial ad displayed successfully');
       
     } catch (error) {
       console.error('❌ Failed to show interstitial ad:', error);
+      console.error('Error details:', JSON.stringify(error));
     }
   }
 
