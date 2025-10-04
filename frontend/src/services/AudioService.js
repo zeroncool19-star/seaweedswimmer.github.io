@@ -295,36 +295,37 @@ class AudioService {
     playTheme(startTime);
   }
 
-  // Harmony layer (chord progression for fullness)
-  createHarmonyLayer(startTime) {
+  // Chord pads (atmospheric harmony)
+  createChordPads(startTime) {
     if (!this.audioContext) return;
     
-    const chords = [
-      { notes: [220, 277.18, 329.63], duration: 2 },  // Am chord
-      { notes: [146.83, 185, 220], duration: 2 },     // D chord
-      { notes: [164.81, 207.65, 246.94], duration: 2 }, // Em chord
-      { notes: [196, 246.94, 293.66], duration: 2 }   // G chord
+    const chordProgression = [
+      { notes: [220, 277.18, 329.63, 440], duration: 4 },  // Amaj7
+      { notes: [164.81, 207.65, 246.94, 329.63], duration: 4 }, // Emaj7
+      { notes: [123.47, 155.56, 185, 246.94], duration: 4 }, // Bmaj7
+      { notes: [146.83, 185, 220, 293.66], duration: 4 }  // Dmaj7
     ];
     
-    const playChord = (chordIndex, time) => {
+    const playPad = (chordIndex, time) => {
       if (!this.isPlaying) return;
       
-      const chord = chords[chordIndex];
+      const chord = chordProgression[chordIndex];
       
       chord.notes.forEach((freq) => {
         const osc = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();
         const filter = this.audioContext.createBiquadFilter();
         
-        osc.type = 'sine';
+        osc.type = 'triangle';
         osc.frequency.value = freq;
         
         filter.type = 'lowpass';
-        filter.frequency.value = 1000;
+        filter.frequency.value = 1200;
+        filter.Q.value = 0.5;
         
         gainNode.gain.value = 0;
-        gainNode.gain.linearRampToValueAtTime(0.05, time + 0.3);
-        gainNode.gain.linearRampToValueAtTime(0.05, time + chord.duration - 0.3);
+        gainNode.gain.linearRampToValueAtTime(0.04, time + 0.5);
+        gainNode.gain.linearRampToValueAtTime(0.04, time + chord.duration - 0.5);
         gainNode.gain.linearRampToValueAtTime(0, time + chord.duration);
         
         osc.connect(filter);
@@ -335,15 +336,15 @@ class AudioService {
         osc.stop(time + chord.duration);
       });
       
-      const nextIndex = (chordIndex + 1) % chords.length;
+      const nextIndex = (chordIndex + 1) % chordProgression.length;
       const nextTime = time + chord.duration;
       
       if (nextTime - this.audioContext.currentTime < 60) {
-        setTimeout(() => playChord(nextIndex, nextTime), (chord.duration - 0.2) * 1000);
+        setTimeout(() => playPad(nextIndex, nextTime), (chord.duration - 0.2) * 1000);
       }
     };
     
-    playChord(0, startTime);
+    playPad(0, startTime);
   }
 
   // Hi-hat layer (adds energy and rhythm)
