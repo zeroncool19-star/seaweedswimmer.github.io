@@ -913,6 +913,36 @@ const FishGame = () => {
                   </div>
                 </div>
 
+                {/* Sound Effects Toggle */}
+                <div className="bg-blue-800 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-2xl">🔊</span>
+                      <div className="text-left">
+                        <div className="text-white font-semibold">Sound Effects</div>
+                        <div className="text-blue-300 text-sm">Swim & collision sounds</div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        const newValue = !sfxEnabled;
+                        setSfxEnabled(newValue);
+                        audioServiceRef.current.setSfxEnabled(newValue);
+                        localStorage.setItem('seaweedSwimmerSfx', newValue.toString());
+                      }}
+                      className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                        sfxEnabled ? 'bg-green-500' : 'bg-gray-600'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                          sfxEnabled ? 'translate-x-7' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+
                 {/* Haptics Toggle */}
                 <div className="bg-blue-800 rounded-lg p-4">
                   <div className="flex items-center justify-between">
