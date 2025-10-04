@@ -64,32 +64,29 @@ class AudioService {
     this.musicNodes = [];
   }
 
-  // Create underwater ambient soundscape
+  // Create underwater theme tune
   createUnderwaterAmbience() {
     if (!this.audioContext || !this.musicEnabled) return;
 
     const now = this.audioContext.currentTime;
 
-    // Bass line (rhythmic foundation)
-    this.createBassLine(now);
+    // Main theme melody (catchy tune)
+    this.createThemeMelody(now);
     
-    // Melodic lead (main melody)
-    this.createMelodicLayer(now);
+    // Bass line (melodic foundation)
+    this.createMelodicBassLine(now);
     
-    // Harmony layer (chord progression)
-    this.createHarmonyLayer(now);
+    // Chord pads (atmospheric harmony)
+    this.createChordPads(now);
     
-    // Rhythmic percussion (upbeat)
-    this.createRhythmLayer(now);
+    // Rhythmic arpeggio (movement)
+    this.createArpeggio(now);
     
-    // Hi-hat/cymbal layer (energy)
-    this.createHiHatLayer(now);
+    // Soft percussion (groove)
+    this.createSoftDrums(now);
     
-    // Bubble sounds (ambience)
-    this.scheduleBubbles();
-    
-    // Water movement ambience
-    this.createWaterAmbience(now);
+    // Ambient pad (underwater atmosphere)
+    this.createAmbientPad(now);
   }
 
   // Rhythmic bass line (funky, energetic)
