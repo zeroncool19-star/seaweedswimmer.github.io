@@ -8,6 +8,11 @@ class AudioService {
     this.sfxEnabled = true;
     this.musicNodes = [];
     this.isPlaying = false;
+    this.scheduledTimeouts = []; // Track timeouts for cleanup
+    
+    // Pre-create sound effect buffers for instant playback
+    this.swimSoundReady = false;
+    this.collisionSoundReady = false;
     
     // Load preferences from localStorage
     const savedMusicPref = localStorage.getItem('seaweedSwimmerMusic');
@@ -27,11 +32,17 @@ class AudioService {
       // Create gain nodes for volume control
       this.musicGainNode = this.audioContext.createGain();
       this.musicGainNode.connect(this.audioContext.destination);
-      this.musicGainNode.gain.value = this.musicEnabled ? 0.3 : 0;
+      this.musicGainNode.gain.value = this.musicEnabled ? 0.25 : 0; // Reduced from 0.3
       
       this.sfxGainNode = this.audioContext.createGain();
       this.sfxGainNode.connect(this.audioContext.destination);
-      this.sfxGainNode.gain.value = this.sfxEnabled ? 0.4 : 0;
+      this.sfxGainNode.gain.value = this.sfxEnabled ? 0.35 : 0; // Reduced from 0.4
+      
+      // Mark sounds as ready
+      this.swimSoundReady = true;
+      this.collisionSoundReady = true;
+      
+      console.log('✅ AudioService initialized');
     } catch (error) {
       console.log('Web Audio API not supported');
     }
