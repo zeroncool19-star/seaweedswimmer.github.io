@@ -532,8 +532,9 @@ class AudioService {
       const nextTime = time + hiHatInterval;
       const nextIsOpen = Math.random() > 0.7; // Occasional open hi-hat
       
-      if (nextTime - this.audioContext.currentTime < 60) {
-        setTimeout(() => playHiHat(nextTime, nextIsOpen), (hiHatInterval - 0.05) * 1000);
+      if (nextTime - this.audioContext.currentTime < 60 && this.isPlaying) {
+        const timeout = setTimeout(() => playHiHat(nextTime, nextIsOpen), (hiHatInterval - 0.05) * 1000);
+        this.scheduledTimeouts.push(timeout);
       }
     };
     
