@@ -658,9 +658,9 @@ class AudioService {
     splashOsc.stop(now + 0.1);
   }
 
-  // Collision sound effect
+  // Collision sound effect - Optimized
   playCollisionSound() {
-    if (!this.sfxEnabled || !this.audioContext) return;
+    if (!this.sfxEnabled || !this.audioContext || !this.collisionSoundReady) return;
     
     const now = this.audioContext.currentTime;
     const osc = this.audioContext.createOscillator();
@@ -668,16 +668,16 @@ class AudioService {
     
     osc.type = 'sawtooth';
     osc.frequency.value = 100;
-    osc.frequency.exponentialRampToValueAtTime(50, now + 0.2);
+    osc.frequency.exponentialRampToValueAtTime(50, now + 0.15);
     
-    gainNode.gain.value = 0.2;
-    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+    gainNode.gain.value = 0.15; // Reduced volume
+    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
     
     osc.connect(gainNode);
     gainNode.connect(this.sfxGainNode);
     
     osc.start(now);
-    osc.stop(now + 0.3);
+    osc.stop(now + 0.2);
   }
 
   // Toggle music on/off
