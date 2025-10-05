@@ -612,34 +612,50 @@ class AudioService {
     this.musicNodes.push(source);
   }
 
-  // Swim sound effect (when player taps)
+  // Swim sound effect (when player taps) - Optimized for instant playback
   playSwimSound() {
-    if (!this.sfxEnabled || !this.audioContext) return;
+    if (!this.sfxEnabled || !this.audioContext || !this.swimSoundReady) return;
     
-    this.createBubbleSound(true);
+    // Resume audio context if suspended
+    if (this.audioContext.state === 'suspended') {
+      this.audioContext.resume();
+    }
     
-    // Add splash sound
     const now = this.audioContext.currentTime;
-    const osc = this.audioContext.createOscillator();
-    const gainNode = this.audioContext.createGain();
-    const filter = this.audioContext.createBiquadFilter();
     
-    osc.type = 'sine';
-    osc.frequency.value = 200;
-    osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+    // Simplified bubble sound - single oscillator for minimal latency
+    const bubbleOsc = this.audioContext.createOscillator();
+    const bubbleGain = this.audioContext.createGain();
     
-    filter.type = 'lowpass';
-    filter.frequency.value = 800;
+    bubbleOsc.type = 'sine';
+    bubbleOsc.frequency.value = 900;
+    bubbleOsc.frequency.exponentialRampToValueAtTime(1100, now + 0.08);
     
-    gainNode.gain.value = 0.15;
-    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+    bubbleGain.gain.value = 0.12;
+    bubbleGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
     
-    osc.connect(filter);
-    filter.connect(gainNode);
-    gainNode.connect(this.sfxGainNode);
+    bubbleOsc.connect(bubbleGain);
+    bubbleGain.connect(this.sfxGainNode);
     
-    osc.start(now);
-    osc.stop(now + 0.15);
+    bubbleOsc.start(now);
+    bubbleOsc.stop(now + 0.12);
+    
+    // Quick splash sound
+    const splashOsc = this.audioContext.createOscillator();
+    const splashGain = this.audioContext.createGain();
+    
+    splashOsc.type = 'sine';
+    splashOsc.frequency.value = 180;
+    splashOsc.frequency.exponentialRampToValueAtTime(90, now + 0.08);
+    
+    splashGain.gain.value = 0.1;
+    splashGain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+    
+    splashOsc.connect(splashGain);
+    splashGain.connect(this.sfxGainNode);
+    
+    splashOsc.start(now);
+    splashOsc.stop(now + 0.1);
   }
 
   // Collision sound effect
