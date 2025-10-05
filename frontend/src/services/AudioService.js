@@ -61,11 +61,18 @@ class AudioService {
     this.createUnderwaterAmbience();
   }
 
-  // Stop all music
+  // Stop all music and clear all scheduled timeouts
   stopMusic() {
     if (!this.audioContext) return;
     
+    console.log('🛑 Stopping music...');
     this.isPlaying = false;
+    
+    // Clear all scheduled timeouts to prevent new oscillators
+    this.scheduledTimeouts.forEach(timeout => clearTimeout(timeout));
+    this.scheduledTimeouts = [];
+    
+    // Stop and disconnect all music nodes
     this.musicNodes.forEach(node => {
       try {
         if (node.stop) node.stop();
@@ -73,6 +80,14 @@ class AudioService {
       } catch (e) {}
     });
     this.musicNodes = [];
+    
+    // Smoothly fade out music gain to prevent clicks
+    if (this.musicGainNode) {
+      const now = this.audioContext.currentTime;
+      this.musicGainNode.gain.cancelScheduledValues(now);
+      this.musicGainNode.gain.setValueAtTime(this.musicGainNode.gain.value, now);
+      this.musicGainNode.gain.linearRampToValueAtTime(0, now + 0.1);
+    }
   }
 
   // Create underwater theme tune
