@@ -453,8 +453,9 @@ class AudioService {
       const nextTime = time + beatInterval;
       const nextIsAccent = !isAccent;
       
-      if (nextTime - this.audioContext.currentTime < 60) {
-        setTimeout(() => playDrum(nextTime, nextIsAccent), (beatInterval - 0.05) * 1000);
+      if (nextTime - this.audioContext.currentTime < 60 && this.isPlaying) {
+        const timeout = setTimeout(() => playDrum(nextTime, nextIsAccent), (beatInterval - 0.05) * 1000);
+        this.scheduledTimeouts.push(timeout);
       }
     };
     
