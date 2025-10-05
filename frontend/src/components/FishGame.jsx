@@ -496,18 +496,27 @@ const FishGame = () => {
   useEffect(() => {
     let lastTapTime = 0;
     const tapCooldown = 50; // Prevent excessive tapping lag
+    let touchHandled = false; // Flag to prevent click after touch
     
-    const handleClick = (e) => {
+    const handleTouch = (e) => {
       const now = Date.now();
       if (now - lastTapTime < tapCooldown) return; // Throttle taps
       
       e.preventDefault();
       e.stopPropagation();
       lastTapTime = now;
+      touchHandled = true; // Mark that touch was handled
+      
+      // Reset flag after a short delay to allow next interaction
+      setTimeout(() => { touchHandled = false; }, 300);
+      
       jumpFish();
     };
 
-    const handleTouch = (e) => {
+    const handleClick = (e) => {
+      // Skip if touch was already handled (prevents double jump on mobile)
+      if (touchHandled) return;
+      
       const now = Date.now();
       if (now - lastTapTime < tapCooldown) return; // Throttle taps
       
@@ -536,9 +545,10 @@ const FishGame = () => {
 
     const canvas = canvasRef.current;
     if (canvas) {
-      // Use passive: false only where needed
-      canvas.addEventListener('click', handleClick, { passive: false });
+      // IMPORTANT: touchstart MUST be registered before click
+      // This ensures touch blocks the subsequent click event
       canvas.addEventListener('touchstart', handleTouch, { passive: false });
+      canvas.addEventListener('click', handleClick, { passive: false });
       canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
       canvas.addEventListener('contextmenu', handleContextMenu, { passive: false });
       document.addEventListener('keydown', handleKeyPress);
@@ -550,8 +560,8 @@ const FishGame = () => {
 
     return () => {
       if (canvas) {
-        canvas.removeEventListener('click', handleClick);
         canvas.removeEventListener('touchstart', handleTouch);
+        canvas.removeEventListener('click', handleClick);
         canvas.removeEventListener('touchmove', handleTouchMove);
         canvas.removeEventListener('contextmenu', handleContextMenu);
       }
