@@ -494,38 +494,6 @@ const FishGame = () => {
 
   // Event listeners with performance optimizations
   useEffect(() => {
-    let lastTapTime = 0;
-    const tapCooldown = 50; // Prevent excessive tapping lag
-    let touchHandled = false; // Flag to prevent click after touch
-    
-    const handleTouch = (e) => {
-      const now = Date.now();
-      if (now - lastTapTime < tapCooldown) return; // Throttle taps
-      
-      e.preventDefault();
-      e.stopPropagation();
-      lastTapTime = now;
-      touchHandled = true; // Mark that touch was handled
-      
-      // Reset flag after a short delay to allow next interaction
-      setTimeout(() => { touchHandled = false; }, 300);
-      
-      jumpFish();
-    };
-
-    const handleClick = (e) => {
-      // Skip if touch was already handled (prevents double jump on mobile)
-      if (touchHandled) return;
-      
-      const now = Date.now();
-      if (now - lastTapTime < tapCooldown) return; // Throttle taps
-      
-      e.preventDefault();
-      e.stopPropagation();
-      lastTapTime = now;
-      jumpFish();
-    };
-
     const handleKeyPress = (e) => {
       if (e.code === 'Space') {
         e.preventDefault();
@@ -533,38 +501,10 @@ const FishGame = () => {
       }
     };
 
-    // Prevent context menu on long press
-    const handleContextMenu = (e) => {
-      e.preventDefault();
-    };
-
-    // Prevent default touch behaviors to avoid scrolling (passive: false for performance)
-    const handleTouchMove = (e) => {
-      e.preventDefault();
-    };
-
-    const canvas = canvasRef.current;
-    if (canvas) {
-      // IMPORTANT: touchstart MUST be registered before click
-      // This ensures touch blocks the subsequent click event
-      canvas.addEventListener('touchstart', handleTouch, { passive: false });
-      canvas.addEventListener('click', handleClick, { passive: false });
-      canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-      canvas.addEventListener('contextmenu', handleContextMenu, { passive: false });
-      document.addEventListener('keydown', handleKeyPress);
-      
-      // Optimize canvas for performance
-      canvas.style.touchAction = 'none';
-      canvas.style.userSelect = 'none';
-    }
+    // Only add keyboard listener for desktop
+    document.addEventListener('keydown', handleKeyPress);
 
     return () => {
-      if (canvas) {
-        canvas.removeEventListener('touchstart', handleTouch);
-        canvas.removeEventListener('click', handleClick);
-        canvas.removeEventListener('touchmove', handleTouchMove);
-        canvas.removeEventListener('contextmenu', handleContextMenu);
-      }
       document.removeEventListener('keydown', handleKeyPress);
     };
   }, [jumpFish]);
