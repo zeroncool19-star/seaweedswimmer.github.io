@@ -1071,7 +1071,7 @@ const FishGame = () => {
                   }}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-lg w-full flex items-center justify-center gap-2"
                 >
-                  📱 Share Score on Facebook
+                  📱 Share Score
                 </Button>
                 
                 <Button 
