@@ -25,6 +25,7 @@ const FishGame = () => {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(parseInt(localStorage.getItem('seaweedSwimmerHighScore') || '0'));
   const [gameStarted, setGameStarted] = useState(false); // Track if first tap happened
+  const [isNewHighScore, setIsNewHighScore] = useState(false); // Track if current game beat high score
   const [musicEnabled, setMusicEnabled] = useState(true);
   const [sfxEnabled, setSfxEnabled] = useState(true);
   const [hapticsEnabled, setHapticsEnabled] = useState(true);
