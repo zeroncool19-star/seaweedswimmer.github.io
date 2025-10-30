@@ -772,7 +772,7 @@ const FishGame = () => {
           <style>{`
             @keyframes riseFromSea {
               0% {
-                transform: translateY(100vh);
+                transform: translateY(200px);
                 opacity: 0;
               }
               50% {
