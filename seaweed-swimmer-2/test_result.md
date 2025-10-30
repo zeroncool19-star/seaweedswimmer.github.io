@@ -306,11 +306,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "FastAPI Leaderboard API"
-    - "Babylon.js 2.5D Game Engine"
     - "Online Leaderboard Integration"
-    - "Gameplay Mechanics"
-  stuck_tasks: []
+    - "Username Management"
+  stuck_tasks: 
+    - "Online Leaderboard Integration"
+    - "Username Management"
   test_all: false
   test_priority: "high_first"
 
