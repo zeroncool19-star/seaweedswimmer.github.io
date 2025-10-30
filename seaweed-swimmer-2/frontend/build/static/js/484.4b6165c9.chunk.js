@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkseaweed_swimmer_2=self.webpackChunkseaweed_swimmer_2||[]).push([[484],{6484:(e,s,a)=>{a.d(s,{SplashScreenWeb:()=>w});var c=a(45403);class w extends c.E_{async show(e){}async hide(e){}}}}]);
+//# sourceMappingURL=484.4b6165c9.chunk.js.map

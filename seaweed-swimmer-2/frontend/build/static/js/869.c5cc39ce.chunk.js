@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkseaweed_swimmer_2=self.webpackChunkseaweed_swimmer_2||[]).push([[869],{35869:(e,a,s)=>{s.d(a,{StatusBar:()=>i});var t,u,n=s(45403);!function(e){e.Dark="DARK",e.Light="LIGHT",e.Default="DEFAULT"}(t||(t={})),function(e){e.None="NONE",e.Slide="SLIDE",e.Fade="FADE"}(u||(u={}));const i=(0,n.F3)("StatusBar")}}]);
+//# sourceMappingURL=869.c5cc39ce.chunk.js.map
