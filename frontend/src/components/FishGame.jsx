@@ -1180,7 +1180,7 @@ const FishGame = () => {
               </h1>
               <div className="text-white mb-4">
                 <div className="text-xl sm:text-2xl mb-2">Final Score: {score}</div>
-                {score === highScore && score > 0 && (
+                {isNewHighScore && score > 0 && (
                   <div className="text-yellow-400 text-base sm:text-lg">🏆 New High Score!</div>
                 )}
                 {score >= 20 && (
