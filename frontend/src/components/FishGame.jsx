@@ -805,7 +805,7 @@ const FishGame = () => {
                     <span className="text-4xl">⚡</span>
                     <h2 className="text-2xl font-bold">Difficulty Rises</h2>
                   </div>
-                  <p className="text-blue-200">Game speeds up every 20 seconds (max level 30)</p>
+                  <p className="text-blue-200">Game speeds up every 20 seconds (max level 20)</p>
                 </div>
               </div>
                 
