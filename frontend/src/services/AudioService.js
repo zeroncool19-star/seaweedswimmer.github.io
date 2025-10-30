@@ -57,6 +57,13 @@ class AudioService {
       this.audioContext.resume();
     }
     
+    // Reset music gain to proper volume (in case it was faded out)
+    if (this.musicGainNode && this.musicEnabled) {
+      const now = this.audioContext.currentTime;
+      this.musicGainNode.gain.cancelScheduledValues(now);
+      this.musicGainNode.gain.setValueAtTime(0.25, now);
+    }
+    
     this.isPlaying = true;
     this.createUnderwaterAmbience();
   }
