@@ -53,6 +53,28 @@ const FishGame = () => {
     
     if (savedChallenge) {
       const challenge = JSON.parse(savedChallenge);
+      
+      // MIGRATION: Check if challenge is from old random system (100, 150, 200, 250, 300)
+      // Valid progressive targets: 20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300
+      const validTargets = Array.from({length: 15}, (_, i) => 20 + (i * 20));
+      const isOldSystem = !validTargets.includes(challenge.target);
+      
+      if (isOldSystem) {
+        // Reset to start of progressive system
+        console.log('Migrating from old challenge system, resetting to 20');
+        const newChallenge = {
+          date: today,
+          target: 20,
+          completed: false,
+          streak: 0,
+          lastStreak: 0
+        };
+        
+        localStorage.setItem('seaweedSwimmerDailyChallenge', JSON.stringify(newChallenge));
+        setDailyChallenge(newChallenge);
+        return;
+      }
+      
       if (challenge.date === today) {
         setDailyChallenge(challenge);
         return;
