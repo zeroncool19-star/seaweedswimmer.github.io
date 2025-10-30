@@ -892,4 +892,396 @@ const FishGame = () => {
         </div>
       )}
 
-      {/* How to Play Screen - CONTINUED IN NEXT FILE DUE TO LENGTH */}
+      {/* How to Play Screen */}
+      {gameState === 'howToPlay' && (
+        <div className="flex items-center justify-center w-full h-full p-4">
+          <Card className="p-6 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-lg w-full border-4">
+            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6" style={{ fontFamily: 'monospace' }}>
+              📖 HOW TO PLAY
+            </h1>
+
+            <div className="space-y-4 text-white mb-8">
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <div className="flex items-center justify-center space-x-3 mb-2">
+                  <span className="text-4xl">👆</span>
+                  <h2 className="text-2xl font-bold" style={{ fontFamily: 'monospace' }}>TAP TO SWIM</h2>
+                </div>
+                <p className="text-blue-200">TAP SCREEN TO SWIM UP</p>
+              </div>
+
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <div className="flex items-center justify-center space-x-3 mb-2">
+                  <span className="text-4xl">🌿</span>
+                  <h2 className="text-2xl font-bold" style={{ fontFamily: 'monospace' }}>AVOID SEAWEED</h2>
+                </div>
+                <p className="text-blue-200">DODGE THE 3D OBSTACLES</p>
+              </div>
+
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <div className="flex items-center justify-center space-x-3 mb-2">
+                  <span className="text-4xl">⏱️</span>
+                  <h2 className="text-2xl font-bold" style={{ fontFamily: 'monospace' }}>SURVIVE LONGER</h2>
+                </div>
+                <p className="text-blue-200">TIME = SCORE IN SECONDS</p>
+              </div>
+
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <div className="flex items-center justify-center space-x-3 mb-2">
+                  <span className="text-4xl">🎮</span>
+                  <h2 className="text-2xl font-bold" style={{ fontFamily: 'monospace' }}>RETRO PS1 STYLE</h2>
+                </div>
+                <p className="text-blue-200">LOW-POLY 3D + CRT EFFECTS</p>
+              </div>
+            </div>
+              
+            <Button 
+              onClick={goToMenu}
+              className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 text-lg w-full border-2 border-gray-800"
+              style={{ fontFamily: 'monospace' }}
+            >
+              ← BACK TO MENU
+            </Button>
+          </Card>
+        </div>
+      )}
+
+      {/* High Scores Screen */}
+      {gameState === 'highScores' && (
+        <div className="flex items-start justify-center w-full h-full p-4 pt-12 pb-4 overflow-y-auto">
+          <Card className="p-6 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-md w-full border-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4" style={{ fontFamily: 'monospace' }}>
+              🏆 HIGH SCORES
+            </h1>
+            
+            <div className="space-y-4">
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <h2 className="text-lg font-semibold text-blue-300 mb-3" style={{ fontFamily: 'monospace' }}>YOUR BEST</h2>
+                <div className="text-4xl font-bold text-white mb-2">{highScore}</div>
+                <div className="text-blue-200 text-sm">
+                  {highScore === 0 ? 'NO GAMES YET!' : `${highScore} SECONDS`}
+                </div>
+              </div>
+
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <h3 className="text-lg font-semibold text-blue-300 mb-3" style={{ fontFamily: 'monospace' }}>ACHIEVEMENTS</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between text-blue-200">
+                    <span>🥉 BRONZE:</span>
+                    <span>20+ SEC</span>
+                  </div>
+                  <div className="flex justify-between text-blue-200">
+                    <span>🥈 SILVER:</span>
+                    <span>50+ SEC</span>
+                  </div>
+                  <div className="flex justify-between text-yellow-400">
+                    <span>🥇 GOLD:</span>
+                    <span>100+ SEC</span>
+                  </div>
+                  <div className="flex justify-between text-cyan-400">
+                    <span>⭐ EXPLORER:</span>
+                    <span>200+ SEC</span>
+                  </div>
+                  <div className="flex justify-between text-green-400">
+                    <span>🐠 WHISPERER:</span>
+                    <span>300+ SEC</span>
+                  </div>
+                  <div className="flex justify-between text-red-400">
+                    <span>🌟 LEGENDARY:</span>
+                    <span>500+ SEC</span>
+                  </div>
+                  <div className="flex justify-between text-indigo-400">
+                    <span>🌌 ABYSSAL:</span>
+                    <span>700+ SEC</span>
+                  </div>
+                  <div className="flex justify-between text-yellow-300 font-bold">
+                    <span>👑 OCEAN DEITY:</span>
+                    <span>1000+ SEC</span>
+                  </div>
+                </div>
+              </div>
+
+              {highScore >= 20 && (
+                <div className="text-center">
+                  <div className="text-2xl mb-2">
+                    {highScore >= 1000 ? '👑' : 
+                     highScore >= 700 ? '🌌' : 
+                     highScore >= 500 ? '🌟' : 
+                     highScore >= 300 ? '🐠' : 
+                     highScore >= 200 ? '⭐' : 
+                     highScore >= 100 ? '🥇' : 
+                     highScore >= 50 ? '🥈' : '🥉'}
+                  </div>
+                  <div className="text-blue-300 font-semibold">
+                    {getAchievement(highScore)}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <Button 
+              onClick={goToMenu}
+              className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 text-lg w-full mt-4 border-2 border-gray-800"
+              style={{ fontFamily: 'monospace' }}
+            >
+              ← BACK TO MENU
+            </Button>
+          </Card>
+        </div>
+      )}
+
+      {/* Settings Screen */}
+      {gameState === 'settings' && (
+        <div className="flex items-center justify-center w-full h-full p-4">
+          <Card className="p-6 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-md w-full border-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6" style={{ fontFamily: 'monospace' }}>
+              ⚙️ SETTINGS
+            </h1>
+            
+            <div className="space-y-6 mb-8">
+              {/* Music Toggle */}
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-2xl">🎵</span>
+                    <div className="text-left">
+                      <div className="text-white font-semibold" style={{ fontFamily: 'monospace' }}>MUSIC</div>
+                      <div className="text-blue-300 text-sm">UNDERWATER SOUNDS</div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newValue = !musicEnabled;
+                      setMusicEnabled(newValue);
+                      audioServiceRef.current.setMusicEnabled(newValue);
+                      localStorage.setItem('seaweedSwimmer2Music', newValue.toString());
+                    }}
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                      musicEnabled ? 'bg-green-500' : 'bg-gray-600'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                        musicEnabled ? 'translate-x-7' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+              </div>
+
+              {/* Sound Effects Toggle */}
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-2xl">🔊</span>
+                    <div className="text-left">
+                      <div className="text-white font-semibold" style={{ fontFamily: 'monospace' }}>SFX</div>
+                      <div className="text-blue-300 text-sm">GAME SOUNDS</div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newValue = !sfxEnabled;
+                      setSfxEnabled(newValue);
+                      audioServiceRef.current.setSfxEnabled(newValue);
+                      localStorage.setItem('seaweedSwimmer2Sfx', newValue.toString());
+                    }}
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                      sfxEnabled ? 'bg-green-500' : 'bg-gray-600'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                        sfxEnabled ? 'translate-x-7' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+              </div>
+
+              {/* Haptics Toggle */}
+              <div className="bg-blue-800 rounded-lg p-4 border-2 border-blue-600">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-2xl">📳</span>
+                    <div className="text-left">
+                      <div className="text-white font-semibold" style={{ fontFamily: 'monospace' }}>VIBRATION</div>
+                      <div className="text-blue-300 text-sm">HAPTIC FEEDBACK</div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      const newValue = !hapticsEnabled;
+                      setHapticsEnabled(newValue);
+                      localStorage.setItem('seaweedSwimmer2Haptics', newValue.toString());
+                    }}
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                      hapticsEnabled ? 'bg-green-500' : 'bg-gray-600'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                        hapticsEnabled ? 'translate-x-7' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <Button 
+              onClick={goToMenu}
+              className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 text-lg w-full border-2 border-gray-800"
+              style={{ fontFamily: 'monospace' }}
+            >
+              ← BACK TO MENU
+            </Button>
+          </Card>
+        </div>
+      )}
+
+      {/* Online Leaderboard Screen */}
+      {gameState === 'leaderboard' && (
+        <div className="flex items-start justify-center w-full h-full p-4 pt-12 pb-4 overflow-y-auto">
+          <Card className="p-6 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-md w-full border-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4" style={{ fontFamily: 'monospace' }}>
+              🌐 ONLINE LEADERBOARD
+            </h1>
+            
+            <div className="bg-blue-800 rounded-lg p-4 mb-4 max-h-96 overflow-y-auto border-2 border-blue-600">
+              {leaderboard.length === 0 ? (
+                <div className="text-blue-300">NO SCORES YET!</div>
+              ) : (
+                <div className="space-y-2">
+                  {leaderboard.map((entry, index) => (
+                    <div
+                      key={entry.id}
+                      className={`flex justify-between items-center p-3 rounded ${
+                        entry.username === username
+                          ? 'bg-yellow-600 text-white'
+                          : index < 3
+                          ? 'bg-blue-700 text-white'
+                          : 'bg-blue-600 text-blue-200'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <span className="font-bold text-lg" style={{ fontFamily: 'monospace' }}>
+                          {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
+                        </span>
+                        <div className="text-left">
+                          <div className="font-semibold" style={{ fontFamily: 'monospace' }}>{entry.username}</div>
+                          <div className="text-xs">{entry.achievement}</div>
+                        </div>
+                      </div>
+                      <div className="font-bold text-lg" style={{ fontFamily: 'monospace' }}>{entry.score}s</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Button 
+              onClick={goToMenu}
+              className="bg-gray-600 hover:bg-gray-700 text-white px-8 py-3 text-lg w-full border-2 border-gray-800"
+              style={{ fontFamily: 'monospace' }}
+            >
+              ← BACK TO MENU
+            </Button>
+          </Card>
+        </div>
+      )}
+
+      {/* Username Prompt */}
+      {showUsernamePrompt && (
+        <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+          <Card className="p-6 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-md w-full border-4">
+            <h2 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'monospace' }}>
+              ENTER USERNAME
+            </h2>
+            <p className="text-blue-200 mb-4 text-sm">
+              3-15 CHARACTERS (LETTERS, NUMBERS, SPACES)
+            </p>
+            <input
+              type="text"
+              value={usernameInput}
+              onChange={(e) => setUsernameInput(e.target.value)}
+              maxLength={15}
+              className="w-full px-4 py-3 rounded bg-blue-800 text-white border-2 border-blue-600 mb-2 text-center"
+              style={{ fontFamily: 'monospace' }}
+              placeholder="YOUR NAME"
+            />
+            {usernameError && (
+              <div className="text-red-400 mb-4 text-sm">{usernameError}</div>
+            )}
+            <div className="flex space-x-3">
+              <Button
+                onClick={handleUsernameSubmit}
+                className="flex-1 bg-green-600 hover:bg-green-700 text-white border-2 border-green-800"
+                style={{ fontFamily: 'monospace' }}
+              >
+                ✓ CONFIRM
+              </Button>
+              <Button
+                onClick={() => setShowUsernamePrompt(false)}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white border-2 border-red-800"
+                style={{ fontFamily: 'monospace' }}
+              >
+                ✕ CANCEL
+              </Button>
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {/* Game Over Screen */}
+      {gameState === 'gameOver' && (
+        <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center rounded-lg p-4">
+          <Card className="p-4 sm:p-8 text-center bg-blue-900 border-blue-700 max-w-sm w-full border-4">
+            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4" style={{ fontFamily: 'monospace' }}>
+              🐠 GAME OVER!
+            </h1>
+            <div className="text-white mb-4">
+              <div className="text-2xl sm:text-3xl mb-2 font-bold">SCORE: {score}</div>
+              {isNewHighScore && score > 0 && (
+                <div className="text-yellow-400 text-lg sm:text-xl">🏆 NEW HIGH SCORE!</div>
+              )}
+              {score >= 20 && (
+                <div className="text-blue-300 mt-2">
+                  {getAchievement(score)}
+                </div>
+              )}
+            </div>
+            
+            <div className="space-y-3">
+              <Button 
+                onClick={jumpFish}
+                className="bg-orange-500 hover:bg-orange-600 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-lg w-full border-2 border-orange-700"
+                style={{ fontFamily: 'monospace' }}
+              >
+                🏊 PLAY AGAIN
+              </Button>
+              
+              <Button 
+                onClick={handleScoreSubmit}
+                disabled={submittingScore}
+                className="bg-green-600 hover:bg-green-700 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-lg w-full border-2 border-green-800"
+                style={{ fontFamily: 'monospace' }}
+              >
+                {submittingScore ? '⏳ SUBMITTING...' : '🌐 SUBMIT TO LEADERBOARD'}
+              </Button>
+              
+              <Button 
+                onClick={goToMenu}
+                className="bg-gray-600 hover:bg-gray-700 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-lg w-full border-2 border-gray-800"
+                style={{ fontFamily: 'monospace' }}
+              >
+                ← BACK TO MENU
+              </Button>
+            </div>
+          </Card>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default FishGame;
