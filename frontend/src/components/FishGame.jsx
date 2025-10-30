@@ -381,12 +381,29 @@ const FishGame = () => {
             setHighScore(newScore);
             localStorage.setItem('seaweedSwimmerHighScore', newScore.toString());
           }
+          // Check if daily challenge completed
+          if (dailyChallenge && !dailyChallenge.completed && newScore >= dailyChallenge.target) {
+            const updatedChallenge = {
+              ...dailyChallenge,
+              completed: true,
+              streak: dailyChallenge.lastStreak + 1
+            };
+            setDailyChallenge(updatedChallenge);
+            localStorage.setItem('seaweedSwimmerDailyChallenge', JSON.stringify(updatedChallenge));
+          }
           // Play collision sound and stop music
           audioServiceRef.current.playCollisionSound();
           audioServiceRef.current.stopMusic();
           // Show interstitial ad when player dies
           adServiceRef.current.showGameOverAd();
           return;
+        }
+        
+        // Check near-miss
+        if (!seaweed.nearMissTriggered && checkNearMiss(game.fish, seaweed)) {
+          seaweed.nearMissTriggered = true; // Only trigger once per seaweed
+          setNearMissEffect(true);
+          setTimeout(() => setNearMissEffect(false), 200);
         }
         
         // Remove off-screen seaweeds
