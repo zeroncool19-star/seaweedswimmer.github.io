@@ -380,7 +380,10 @@ const FishGame = () => {
           setGameState('gameOver');
           if (newScore > highScore) {
             setHighScore(newScore);
+            setIsNewHighScore(true);
             localStorage.setItem('seaweedSwimmerHighScore', newScore.toString());
+          } else {
+            setIsNewHighScore(false);
           }
           // Check if daily challenge completed
           if (dailyChallenge && !dailyChallenge.completed && newScore >= dailyChallenge.target) {
