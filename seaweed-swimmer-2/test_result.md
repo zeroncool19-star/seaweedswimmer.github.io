@@ -213,15 +213,18 @@ frontend:
 
   - task: "Daily Challenges (v43 port)"
     implemented: true
-    working: "unknown"
+    working: true
     file: "/app/seaweed-swimmer-2/frontend/src/components/FishGame.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "unknown"
           agent: "main"
           comment: "Ported daily challenge system: progressive targets (20-300s), streak tracking, migration from old system"
+        - working: true
+          agent: "testing"
+          comment: "✅ DAILY CHALLENGES WORKING: 'Today's Challenge' card prominently displayed on main menu with correct target (Reach 20 seconds for new players), challenge indicator visible during gameplay in top-right corner showing 'Daily Challenge Target: 20s', progressive target system appears to be functioning correctly."
 
   - task: "Score Milestones & Near-Miss Effects"
     implemented: true
