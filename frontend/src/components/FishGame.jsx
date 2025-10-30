@@ -132,7 +132,8 @@ const FishGame = () => {
       x: 150,
       y: CANVAS_HEIGHT / 2,
       velocity: 0,
-      rotation: 0
+      rotation: 0,
+      swimAnimTime: 0  // Track tail animation timing
     },
     seaweeds: [],
     lastFrameTime: Date.now(),
