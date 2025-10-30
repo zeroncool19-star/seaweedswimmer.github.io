@@ -858,9 +858,31 @@ const FishGame = () => {
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
               🐠 Seaweed Swimmer
             </h1>
-            <p className="text-blue-200 mb-8 text-sm sm:text-base">
+            <p className="text-blue-200 mb-4 text-sm sm:text-base">
               Navigate your fish through the underwater seaweed forest
             </p>
+            
+            {/* Daily Challenge Card */}
+            {dailyChallenge && (
+              <div className={`mb-6 p-4 rounded-lg ${dailyChallenge.completed ? 'bg-green-900 border-2 border-green-500' : 'bg-purple-900 border-2 border-purple-500'}`}>
+                <div className="text-lg font-bold text-white mb-2">
+                  📅 Today's Challenge
+                </div>
+                <div className="text-blue-200 mb-2">
+                  Reach {dailyChallenge.target} seconds
+                </div>
+                {dailyChallenge.completed ? (
+                  <div className="text-green-400 font-bold">✓ Completed!</div>
+                ) : (
+                  <div className="text-yellow-400">In Progress...</div>
+                )}
+                {dailyChallenge.lastStreak > 0 && (
+                  <div className="text-yellow-400 text-sm mt-2">
+                    🔥 {dailyChallenge.lastStreak} Day Streak!
+                  </div>
+                )}
+              </div>
+            )}
             
             <div className="space-y-4">
               <Button 
