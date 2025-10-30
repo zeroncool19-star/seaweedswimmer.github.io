@@ -28,6 +28,12 @@ const FishGame = () => {
   const [musicEnabled, setMusicEnabled] = useState(true);
   const [sfxEnabled, setSfxEnabled] = useState(true);
   const [hapticsEnabled, setHapticsEnabled] = useState(true);
+  
+  // Addictiveness features
+  const [milestonePopup, setMilestonePopup] = useState(null); // {score: 100, text: "Century!"}
+  const [nearMissEffect, setNearMissEffect] = useState(false);
+  const [dailyChallenge, setDailyChallenge] = useState(null); // {target: 150, streak: 3}
+  const lastMilestoneRef = useRef(0);
 
   // Game constants
   const CANVAS_WIDTH = 800;
