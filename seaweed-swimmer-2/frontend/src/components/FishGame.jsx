@@ -212,35 +212,11 @@ const FishGame = () => {
     };
   }, []);
 
-  // Create PS1-style effects
+  // Create PS1-style post-processing effects (simplified without custom shaders)
   const createPS1Effects = (scene, camera) => {
-    // Low-res pixelation
-    const pixelationEffect = new BABYLON.PostProcess(
-      'pixelate',
-      './shaders/pixelate',
-      ['screenSize'],
-      null,
-      0.3, // Render at 30% resolution
-      camera
-    );
-
-    // CRT scanlines & chromatic aberration
-    const crtEffect = new BABYLON.PostProcess(
-      'crt',
-      './shaders/crt',
-      ['time', 'amount'],
-      null,
-      1.0,
-      camera,
-      BABYLON.Texture.BILINEAR_SAMPLINGMODE
-    );
-
-    let time = 0;
-    crtEffect.onApply = (effect) => {
-      time += 0.01;
-      effect.setFloat('time', time);
-      effect.setFloat('amount', 0.003);
-    };
+    // Simplified retro effect without custom shaders
+    // The low-poly models and vertex wobble already provide the retro aesthetic
+    console.log('PS1 effects: Using built-in Babylon.js rendering for retro style');
   };
 
   // Create low-poly fish
