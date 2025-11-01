@@ -846,24 +846,30 @@ const FishGame = () => {
             <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-blue-950 to-transparent opacity-80"></div>
           </div>
           
-          {/* Rising text container */}
-          <div className="relative z-10 text-center px-4">
-            {/* Game title - rises from sea */}
+          {/* Professional logo/image container */}
+          <div className="relative z-10 text-center px-4 flex flex-col items-center">
+            {/* Main intro image - fades in and scales */}
             <div 
-              className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-4 opacity-0 leading-tight"
+              className="opacity-0 mb-6"
               style={{
-                animation: 'riseFromSea 2s ease-out forwards',
-                textShadow: '0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.6)'
+                animation: 'fadeInScale 2s ease-out forwards'
               }}
             >
-              🐠 Seaweed Swimmer
+              <img 
+                src="/seaweed-intro.png" 
+                alt="Seaweed Swimmer" 
+                className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-contain drop-shadow-2xl"
+                style={{
+                  filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 0.6))'
+                }}
+              />
             </div>
             
-            {/* Created by text - rises with delay */}
+            {/* Created by text - fades in with delay */}
             <div 
               className="text-lg xs:text-xl sm:text-2xl md:text-3xl text-blue-200 opacity-0"
               style={{
-                animation: 'riseFromSea 2s ease-out 0.8s forwards',
+                animation: 'fadeInScale 2s ease-out 1s forwards',
                 textShadow: '0 0 10px rgba(147, 197, 253, 0.6)'
               }}
             >
@@ -890,16 +896,16 @@ const FishGame = () => {
           
           {/* CSS animations */}
           <style>{`
-            @keyframes riseFromSea {
+            @keyframes fadeInScale {
               0% {
-                transform: translateY(200px);
+                transform: scale(0.8);
                 opacity: 0;
               }
               50% {
                 opacity: 0.5;
               }
               100% {
-                transform: translateY(0);
+                transform: scale(1);
                 opacity: 1;
               }
             }
