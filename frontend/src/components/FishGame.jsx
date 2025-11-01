@@ -869,17 +869,18 @@ const FishGame = () => {
           
           {/* Professional logo/image container */}
           <div className="relative z-10 text-center px-4 flex flex-col items-center">
-            {/* Main intro image - fades in and scales */}
+            {/* Main intro image - fades in and scales with longer animation */}
             <div 
               className="opacity-0 mb-6"
               style={{
-                animation: 'fadeInScale 2s ease-out forwards'
+                animation: 'fadeInScale 2.5s ease-out forwards' // Increased from 2s
               }}
             >
               <img 
                 src="/seaweed-intro.png" 
                 alt="Seaweed Swimmer" 
                 className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-contain drop-shadow-2xl"
+                loading="eager"
                 style={{
                   filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 0.6))'
                 }}
@@ -890,7 +891,7 @@ const FishGame = () => {
             <div 
               className="text-lg xs:text-xl sm:text-2xl md:text-3xl text-blue-200 opacity-0"
               style={{
-                animation: 'fadeInScale 2s ease-out 1s forwards',
+                animation: 'fadeInScale 2s ease-out 1.5s forwards', // Increased delay from 1s
                 textShadow: '0 0 10px rgba(147, 197, 253, 0.6)'
               }}
             >
