@@ -5,11 +5,10 @@ import AdService from '../services/AdService';
 import AudioService from '../services/AudioService';
 
 // Import Capacitor plugins for mobile features
-let Haptics, StatusBar, SplashScreen;
+let Haptics, SplashScreen;
 if (typeof window !== 'undefined') {
   try {
     import('@capacitor/haptics').then(module => { Haptics = module.Haptics; });
-    import('@capacitor/status-bar').then(module => { StatusBar = module.StatusBar; });
     import('@capacitor/splash-screen').then(module => { SplashScreen = module.SplashScreen; });
   } catch (error) {
     console.log('Capacitor plugins not available in web environment');
