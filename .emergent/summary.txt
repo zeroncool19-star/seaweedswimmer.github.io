@@ -1,64 +1,91 @@
 <analysis>
-The trajectory details the development of a React-based game, Seaweed Swimmer, from its initial creation to the complex process of Android deployment. The initial AI engineer successfully built the complete game, including core mechanics, UI, and AdMob monetization, wrapping it with Capacitor for mobile. The core challenge documented is the user's transition to a local development environment to build the Android APK.
-
-The process has been a protracted and iterative troubleshooting session within the user's local Android Studio setup. The AI correctly diagnosed and provided solutions for numerous distinct issues: incorrect directory navigation by the user, Capacitor CLI version incompatibilities, Android SDK path errors, Java (JDK) version mismatches, Gradle cache corruption, and syntax errors in Gradle build files. However, each fix seemed to uncover a new, more complex problem in the user's environment.
-
-The current state is a critical build failure. After resolving multiple preliminary errors, the Gradle sync process now fails with a  originating from the  file, indicating a potential infinite loop or recursive error in the build configuration. The previous AI has exhausted standard troubleshooting and has escalated the issue.
+The AI engineer has demonstrated extensive capabilities in both maintaining and evolving an existing game, Seaweed Swimmer, and initiating a new, more complex sequel, Seaweed Swimmer 2. Key work on the original game involved numerous UI/UX enhancements, audio fixes, addictiveness features, and crucial Google Play compliance updates (e.g., app icon, intro screen, Android 15 compatibility, fish graphics/animation, removing features). Simultaneously, the engineer architected and partially implemented Seaweed Swimmer 2 with Babylon.js for 3D graphics and a FastAPI/MongoDB backend for online leaderboards, adapting to user feedback by simplifying its scope to 2.5D. The work shows strong iterative development, debugging of deployment and rendering issues, and detailed versioning and documentation for each release. The engineer is adept at handling diverse technical challenges from game logic to platform-specific deployments.
 </analysis>
 
 <product_requirements>
-The user requested the creation of a Flappy Bird-style game, Seaweed Swimmer, intended for monetization and release on the Google Play Store.
+**Original Seaweed Swimmer (v0 to v51):** The user’s primary goal was to launch a Flappy Bird-style mobile game on Google Play. This entailed:
+-   **Core Gameplay:** Tap-to-swim, time-based scoring, local high scores, increasing difficulty, AdMob integration.
+-   **UI/UX:** Tap to Start, responsive design, accessible menus, comprehensive high score achievements, improved layout.
+-   **Audio/Visuals:** Intro screen, theme music, SFX/haptics, resolving audio issues (crackling, delay, music over ads), dynamic fish graphics with animated tail, professional intro screen image.
+-   **Addictiveness:** Score milestones, near-miss feedback, daily challenges.
+-   **Sharing:** Share visual scorecard (later removed).
+-   **Android Compliance:** Resolved build errors, managed Capacitor plugins, incremented , handled keystore, removed resizability/orientation restrictions, migrated deprecated APIs for Android 15, implemented custom app icon.
+-   **Performance:** Frame-rate independent speed (), faster fish drop.
+-   **Marketing Assets:** Create a 30-second gameplay demo video, eye-catching screenshots with text.
 
-**Core Functional Requirements (Implemented):**
--   **Gameplay:** A tap-to-swim game where a fish navigates through wavy seaweed obstacles.
--   **Scoring & Progression:** Time-based scoring with a local high score system. Difficulty increases every 20 seconds. An achievement system from Bronze to Legendary Swimmer was included.
--   **UI/UX:** A complete interface with a main menu, How to Play instructions, and a high-scores screen.
--   **Monetization:** Integrated AdMob banner ads (during gameplay) and interstitial ads (on game over).
-
-**Distribution Requirement (In Progress):**
--   The primary goal is to package the completed React web application into an Android Application Bundle (.aab) or APK using Capacitor and Android Studio. This build must be submittable to the Google Play Console for public release. The project is currently stuck in this phase due to persistent build errors in the user's local environment.
+**Seaweed Swimmer 2 (In Development):** The user requested a new, completely separate application featuring:
+-   **Online High-Scoring System:** Global leaderboard with unique usernames.
+-   **Retro 3D Graphics:** PS1 era style using Babylon.js, CRT screen effects, retaining existing color scheme with shade variations.
+-   **Architecture:** Completely new app, backend for leaderboard.
 </product_requirements>
 
 <key_technical_concepts>
-- **React:** Core framework for the game's logic and user interface.
-- **HTML Canvas API:** Used for all in-game rendering (player, obstacles, background).
-- **Capacitor:** Hybrid app framework used to wrap the React web app into a native Android project.
-- **Android Studio & Gradle:** The native toolchain for compiling, building, and debugging the Android application.
-- **AdMob:** Google's platform for mobile ad integration and monetization.
+-   **React & Hooks:** Frontend game logic, UI, state management.
+-   **HTML Canvas API:** 2D rendering (original game).
+-   **Babylon.js:** 3D rendering (Seaweed Swimmer 2).
+-   **Capacitor:** Hybrid app framework for Android.
+-   **FastAPI:** Backend API for online leaderboards (SS2).
+-   **MongoDB:** Database for SS2 (implicit via ).
+-   **Web Audio API:** In-game audio/SFX.
+-   **Local Storage:** Client-side data persistence.
+-   **Delta Time:** Frame-rate independent game speed.
+-   **Supervisor:** Process management for services.
+-   **FFmpeg, ImageMagick:** Video and image processing.
 </key_technical_concepts>
 
 <code_architecture>
-The application is a frontend-centric game built with React and packaged for mobile using Capacitor. The backend is unused.
+The application suite currently consists of two distinct projects: the original  (Seaweed Swimmer v43-v51) and the newly developed .
+
+**Overall Directory Structure:**
 
 
+**Detailed Directory Structure & File Importance:**
 
--   ****:
-    -   This is the heart of the application, containing the entire game loop, state management (menu, playing, game over), HTML Canvas rendering logic for all game elements, collision detection, scoring, and difficulty progression.
--   ****:
-    -   This directory is a complete, standalone Android Studio project. The current work is entirely focused on making this project build successfully.
--   ****:
-    -   This file defines app-specific configurations and dependencies. It has been modified multiple times to switch between local project dependencies and Maven coordinates in an attempt to resolve plugin resolution errors.
--   ****:
-    -   This file defines shared version numbers and SDK configurations for Gradle. It is the origin of the current critical  that is blocking all progress.
+-   ** (Original Seaweed Swimmer):**
+    -   ****: Capacitor's native Android project.
+        -   ****: Crucial for Android  (incremented up to 51), dependencies, and build configurations.
+        -   ****: Edited to remove  and add  for large screen support.
+        -   ****: Contains various  directories for app icons and  for adaptive icons. Updated to include custom app icon across multiple resolutions.
+    -   ****: Main HTML file. Edited to add meta tags (, ) for Android 15 edge-to-edge display.
+    -   ****: **CORE GAME LOGIC.** Manages game state, rendering, UI, physics, and interactions.
+        -   **Changes:** Heavily modified throughout the trajectory for: daily challenge migration fix (v43); enhanced fish graphics (gradients, eye, fins, scales) (v45); dynamic tail fin animation on tap (v45); integration of professional intro screen image with animations (v46); fixing mobile intro screen timing (v47); removing Share Score button (v48); removing  plugin imports/usage (v49); adjusting  for faster fish drop (v51).
+    -   ****: Manages AdMob integration.
+    -   ****: Controls in-game music and sound effects.
+    -   ****: Capacitor configuration. Edited to remove the  plugin for Android 15 compatibility (v49).
+    -   ****: Frontend dependencies (React, Tailwind, Capacitor, etc.).
+
+-   **:**
+    -   ****: FastAPI backend for online leaderboard. Implemented , , ,  endpoints, using UUIDs for IDs.
+    -   ****: Python dependencies for FastAPI backend.
+
+-   **:**
+    -   ****: Basic HTML shell for the React app.
+    -   ****: Root React component.
+    -   ****: Entry point for the React app.
+    -   ****: Global CSS.
+    -   ****: **CORE SS2 GAME LOGIC.** Handles Babylon.js 2.5D rendering, PS1 effects (initially via custom shaders, later removed for built-in), game state, and leaderboard integration.
+        -   **Changes:** Created to render a Babylon.js 2.5D game. Initial issues with shader compilation were resolved by removing custom shader code. Fish and seaweed visibility (size, position, thickness) were adjusted to make gameplay elements clear. Integrates with the new  for leaderboard interactions.
+    -   ****: Handles API calls to the SS2 FastAPI backend for leaderboard functionality. Initially had an issue with  pointing to production URL, fixed to use  for local development/testing.
+    -   ****: Placeholder for AdMob, copied from original.
+    -   ****: Game audio logic, copied from original (v43 adapted).
+    -   ****: Capacitor configuration for SS2.
+    -   ****: Frontend dependencies including , , .
+    -   ****: Project specific README.
+    -   ****: Testing documentation.
+    -   ****: Comprehensive setup guide for the SS2 project.
 </code_architecture>
 
 <pending_tasks>
-- The single, critical pending task is to successfully build the Android project in the user's local Android Studio environment.
-- This requires diagnosing and fixing the  that occurs during the Gradle sync, which originates from the  file.
-- Once the build succeeds, the next step would be to generate a debug APK and test it on a virtual device.
+-   Recreate the 30-second gameplay demo video () to show actual, engaging gameplay instead of quickly ending in a game over.
+-   Add eye-catching, simplistic text overlays to the captured game screenshots for Google Play Store listing.
 </pending_tasks>
 
 <current_work>
-The project is in a state of critical failure within the user's local Android development environment. The user, wanting to build the game for Android Studio Narwhal, has gone through a lengthy and frustrating troubleshooting process. After starting from scratch multiple times, the AI and user have collaboratively resolved a cascading series of build problems:
+The AI engineer is currently in the process of generating eye-catching screenshots of all aspects of the game with eye-catching simplistic text for each screenshot as requested by the user (Chat Message 555). The latest action was to initiate the screenshot capture process for various game states (intro, menu, gameplay, game over).
 
-1.  **Android SDK Path:** Corrected an invalid SDK path.
-2.  **Java Version Mismatch:** Fixed an Unsupported class file major version 68 error by changing the Gradle JDK from version 24 to a compatible version 21.
-3.  **Gradle Cache Corruption:** Addressed an inconsistent immutable workspace error by instructing the user to clear the Gradle cache.
-4.  **Gradle File Syntax Error:** Corrected a  file that was corrupted with XML tags from a previous failed automated edit.
-
-Immediately after fixing the syntax error, the Gradle sync process now fails with a new, more severe error: . The error trace points to  line 18, suggesting a recursive loop or critical misconfiguration within that file. The project is currently unbuildable, and this error is the immediate blocker.
+Specifically, the system successfully executed a command to capture screenshots (Chat Message 557) and confirmed that the screenshots were captured (). The next logical step, as indicated by the AI's internal thought process, is to copy the screenshots and add eye-catching text overlays to each one (Chat Message 560). This task directly follows the user's explicit request for marketing assets for the Google Play Store. This work is focused on the original  application, which is currently at version 51, incorporating all previous updates like improved fish graphics, animated tail, enhanced intro screen, and Google Play compliance fixes.
 </current_work>
 
 <optional_next_step>
-The immediate next step is to analyze the  file, specifically around line 18, to identify and fix the cause of the .
+Copy the captured raw screenshots and overlay them with the requested eye-catching, simplistic text.
 </optional_next_step>
