@@ -1,0 +1,29 @@
+🎮 SEAWEED SWIMMER - MARKETING ASSETS
+=====================================
+
+📁 FOLDER STRUCTURE:
+/app/marketing_assets/
+├── screenshots/          # 5 screenshots with text overlays
+│   ├── marketing_screenshot_intro.jpeg          (Intro)
+│   ├── marketing_screenshot_menu.jpeg           (Menu)
+│   ├── marketing_screenshot_instructions.jpeg   (Instructions)
+│   ├── marketing_screenshot_gameplay.jpeg       (Gameplay)
+│   └── marketing_screenshot_gameover.jpeg       (Game Over)
+│
+└── videos/              # Demo videos
+    ├── seaweed_swimmer_screenshots_demo.mp4  (RECOMMENDED for app stores)
+    └── seaweed_swimmer_demo_final.mp4        (Actual gameplay footage)
+
+🚀 GOOGLE PLAY STORE CHECKLIST:
+1. Upload all 5 screenshots from screenshots/ folder
+2. Use seaweed_swimmer_screenshots_demo.mp4 as promo video
+3. Package file: /app/seaweed_swimmer_v51.zip
+
+📱 SCREENSHOT ORDER FOR APP STORE:
+1. Intro - "Dive Into Underwater Adventure!"
+2. Gameplay - "Tap To Swim! Avoid The Seaweed!"
+3. Instructions - "Easy To Follow Instructions!"
+4. Menu - "Simple And Intuitive Game Menu!"
+5. Game Over - "Beat Your High Score!"
+
+✅ ALL ASSETS READY FOR SUBMISSION!
