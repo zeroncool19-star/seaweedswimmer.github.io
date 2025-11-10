@@ -151,6 +151,12 @@ body {
     opacity: 0.9;
 }
 
+.download .small-note {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
 /* Screenshots Section */
 .screenshots {
     padding: 60px 20px;
