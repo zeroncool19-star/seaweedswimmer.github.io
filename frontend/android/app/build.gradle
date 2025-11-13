@@ -51,6 +51,10 @@ dependencies {
     implementation project(':capacitor-android')
     implementation project(':capacitor-cordova-android-plugins')
     
+    // AdMob and Meta Audience Network mediation
+    implementation 'com.google.android.gms:play-services-ads:23.5.0'
+    implementation 'com.google.ads.mediation:facebook:6.17.0.0'
+    
     // Test dependencies
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
