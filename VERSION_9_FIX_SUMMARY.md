@@ -115,6 +115,6 @@ The AAB file will be generated at:
 - **Verified:** Full end-to-end gameplay testing completed successfully
 
 ## Notes
-- The web preview at https://seaweed-swimmer-3.preview.emergentagent.com shows the fix working perfectly
+- The web preview at https://zeroncool-games.preview.emergentagent.com shows the fix working perfectly
 - All previous features remain intact
 - Ready for Google Play Console upload

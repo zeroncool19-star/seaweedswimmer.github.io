@@ -175,7 +175,7 @@ DB_NAME=seaweed_swimmer_2
 
 ### Frontend (.env)
 ```
-REACT_APP_BACKEND_URL=https://seaweed-swimmer-3.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://zeroncool-games.preview.emergentagent.com
 WDS_SOCKET_PORT=443
 ```
 
